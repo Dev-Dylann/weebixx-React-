@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+#nav-container {
+    height: -webkit-fill-available;
+}
+
+body,
+#root {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
+.splide-arrow {
+    color: white;
+}
+
+.loading {
+    background: conic-gradient(transparent, #e3b3ff)
+}
