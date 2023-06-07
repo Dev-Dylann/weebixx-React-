@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import {animeApi} from '../api/api'
 import Slider from './Slider';
@@ -58,7 +59,7 @@ const Browse = () => {
     }, [])
 
   return (
-    <main className='flex flex-col gap-6 pb-16'>
+    <main className='flex flex-col gap-6 pb-16 dark:text-white'>
         <section className='relative text-white font-montserrat h-[30vh] bg-black'>
             <h2 className='absolute top-5 left-5 font-bold z-[1]'>Trending Anime</h2>
             <Slider trending={trending} />
@@ -76,11 +77,11 @@ const Browse = () => {
             {!fetchError && !isLoading && (
                 <article className='grid grid-cols-3 gap-3'>
                     {recent.map(episode => (
-                        <div key={episode.id} className='relative h-full'>
+                        <Link to={`episode/${episode.id}/${episode.episodeNumber}`} key={recent.indexOf(episode)} className='relative h-full'>
                             <img src={episode.image} alt='' className='rounded-lg shadow-lg' />
-                            <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md'>Ep. {episode.episodeNumber}</p>
+                            <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a]'>Ep. {episode.episodeNumber}</p>
                             <p className='mt-1 text-sm line-clamp-2 text-ellipsis'>{episode.title.userPreferred}</p>
-                        </div>
+                        </Link>
                     ))}
                 </article>
             )}

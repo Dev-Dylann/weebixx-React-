@@ -12,6 +12,10 @@ export default {
           dark: "#131316",
         },
         accent: "#e3b3ff",
+        overlay: {
+          light: "rgba(255, 255, 255, 0.6)",
+          dark: "rgba(0, 0, 0, 0.6)",
+        },
       },
     },
   },

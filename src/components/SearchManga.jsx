@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {mangaApi} from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
@@ -51,17 +52,17 @@ const SearchManga = ({ query }) => {
         {!isLoading && !fetchError && !searchResults.length && <Error fetchError={`No results found for ${query}`} />}
 
         {!isLoading && !fetchError && searchResults.length && (
-            <section className='grid grid-cols-3 gap-3 pb-20 relative'>
+            <section className='grid grid-cols-3 gap-3 pb-20 relative dark:text-white'>
                 {searchResults.map(result => (
-                    <div key={result.id} className='relative h-full'>
+                    <Link to={`/manga/${result.id}`} key={result.id} className='relative h-full'>
                         <img src={result.image} alt='' className='rounded-lg shadow-lg' />
                         <p className='mt-1 text-sm line-clamp-2 text-ellipsis'>{result.title.userPreferred}</p>
-                    </div>
+                    </Link>
                 ))}
 
-                <button disabled={page === 1} onClick={() => setPage(prev => prev - 1)} className='absolute bottom-3 left-0 p-2 rounded-lg bg-accent text-sm disabled:hidden'><ChevronLeftIcon className='h-6 w-6 inline' />Previous Page</button>
+                <button disabled={page === 1} onClick={() => setPage(prev => prev - 1)} className='absolute bottom-3 left-0 p-2 rounded-lg bg-accent text-sm disabled:hidden dark:text-[#1a1a1a]'><ChevronLeftIcon className='h-6 w-6 inline' />Previous Page</button>
 
-                <button disabled={!nextPage} onClick={() => setPage(prev => prev + 1)} className='absolute bottom-3 right-0 p-2 rounded-lg bg-accent text-sm disabled:hidden'>Next Page<ChevronRightIcon className='h-6 w-6 inline' /></button>
+                <button disabled={!nextPage} onClick={() => setPage(prev => prev + 1)} className='absolute bottom-3 right-0 p-2 rounded-lg bg-accent text-sm disabled:hidden dark:text-[#1a1a1a]'>Next Page<ChevronRightIcon className='h-6 w-6 inline' /></button>
             </section>
         )} 
     </>

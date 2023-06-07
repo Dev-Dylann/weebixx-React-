@@ -3,11 +3,13 @@ import { createContext, useState } from "react";
 const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-  const [placeholder] = useState("Holding");
+  const [isDark, setIsDark] = useState(false);
+
+
   return (
     <DataContext.Provider
       value={{
-        placeholder,
+        isDark, setIsDark,
       }}
     >
       {children}
