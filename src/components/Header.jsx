@@ -18,7 +18,7 @@ const Header = () => {
           {!navStatus ? <Bars3Icon className='h-8 w-8 dark:stroke-white' /> : <XMarkIcon className='h-8 w-8 dark:stroke-white' />}
         </button>
 
-        <Link to='/' className='flex justify-center z-10' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-1/2' /></Link>
+        <Link to='/' className='flex justify-center z-10' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-2/5' /></Link>
 
         <button className='z-10' onClick={() => setSearchIcon(prev => !prev)}>
           <MagnifyingGlassIcon className='h-6 w-6 dark:stroke-white'/>
@@ -27,7 +27,7 @@ const Header = () => {
         <Nav navStatus={navStatus} />
 
         {searchIcon && (
-          <form className='absolute w-[90%] h-[90%] top-[5%] bottom-[5%] bg-white flex gap-3 items-center font-nunito z-[11] dark:bg-background-dark' onSubmit={(e) => e.preventDefault()}>
+          <form className='absolute w-[92%] h-[90%] top-[5%] left-[4%] bg-white flex gap-3 items-center font-nunito z-[11] dark:bg-background-dark' onSubmit={(e) => e.preventDefault()}>
             <label htmlFor="search" className='absolute -left-[10000px]'>Search anime or manga...</label>
             <input type="text" id='search' placeholder='Search anime or manga' autoFocus='on' value={query} onChange={(e) => setQuery(e.target.value)} className='grow rounded-lg px-3 py-1 border border-background-dark' />
 

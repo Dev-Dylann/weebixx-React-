@@ -115,6 +115,10 @@ const AnimeInfo = () => {
                 {animeInfo.type}
             </p>
 
+            <p className='flex flex-wrap justify-center gap-3 mt-2'>{animeInfo.genres?.map(genre => (
+                            <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={animeInfo.genres.indexOf(genre)}>{genre.trim()}</span>
+                        ))}</p>
+
             <p className='mt-2'>{animeInfo.description}</p>
 
             <button ref={expandRef} type='button' onClick={(e) => setDetails(prev => !prev)} className='p-2 rounded-full transition-all duration-300'>
@@ -126,9 +130,7 @@ const AnimeInfo = () => {
                 <p>Adult Content: {animeInfo.isAdullt ? 'Yes' : 'No'}</p>
                 <p>Rating: {animeInfo.rating}/100</p>
                 <p>Studio: {animeInfo.studios}</p>
-                <p className='col-span-full'>Genres: {animeInfo.genres?.map(genre => (
-                        <span key={animeInfo.genres.indexOf(genre)}>{genre}, </span>
-                    ))}</p>
+                
                 <p className='col-span-full'>Alternative Name: {animeInfo.title?.english}</p>
             </article>
         </section>

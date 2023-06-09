@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { mangaApi } from '../api/api'
+import axios from 'axios'
 import Loader from './Loader'
 import Error from './Error'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
@@ -83,7 +84,7 @@ const MangaReader = () => {
       fetchPages()
     }
   }, [chapterIndex])
-
+  
   return (
     <main className='relative'>
 
@@ -98,9 +99,9 @@ const MangaReader = () => {
 
       {!fetchError && !isLoading && (
         
-          <section className='flex flex-col px-5 py-2 gap-1 items-center'>
+          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white'>
             {pages.map(page => (
-              <img key={page.page} src={page.img} alt={`Page ${page.page}`} />
+              <img key={pages.page} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=https://mangadex.org/`} alt={`Page ${pages.page}`} />
             ))}
           </section>
 

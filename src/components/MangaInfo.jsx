@@ -118,6 +118,10 @@ const MangaInfo = () => {
                         {mangaInfo.type}
                     </p>
 
+                    <p className='flex flex-wrap justify-center gap-3 mt-2'>{mangaInfo.genres?.map(genre => (
+                            <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={mangaInfo.genres.indexOf(genre)}>{genre.trim()}</span>
+                        ))}</p>
+
                     <p className='mt-2'>{mangaInfo.description}</p>
 
                     <button ref={expandRef} type='button' onClick={(e) => setDetails(prev => !prev)} className='p-2 rounded-full transition-all duration-300'>
@@ -127,9 +131,7 @@ const MangaInfo = () => {
                     <article ref={detailsRef} className='hidden grid-cols-2 gap-x-3 gap-y-1 text-sm p-3 text-gray-400'>
                         <p>Released: {mangaInfo.releaseDate}</p>
                         <p>Rating: {mangaInfo.rating}/100</p>
-                        <p className='col-span-full'>Genres: {mangaInfo.genres?.map(genre => (
-                            <span key={mangaInfo.genres.indexOf(genre)}>{genre}, </span>
-                        ))}</p>
+                        
                         <p className='col-span-full'>Alternative Name: {mangaInfo.title?.english}</p>
                     </article>
                 </section>
