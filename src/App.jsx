@@ -10,6 +10,7 @@ import EpisodeInfo from './components/EpisodeInfo';
 import MangaInfo from './components/MangaInfo';
 import AllChapters from './components/AllChapters';
 import MangaReader from './components/MangaReader';
+import Error from './components/Error';
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="manga/:mangaId" element={<MangaInfo />} />
           <Route path="chapterlist/:mangaId" element={<AllChapters />} />
           <Route path="chapter/:mangaId/:chapterId" element={<MangaReader />} />
+          <Route path="*" element={<Error fetchError={'The page you requested doesn\'t seem to exist'} />} />
         </Route>
       </Routes>
     </DataProvider>

@@ -27,7 +27,7 @@ const Header = () => {
         <Nav navStatus={navStatus} />
 
         {searchIcon && (
-          <form className='absolute w-full px-5 h-[90%] top-[5%] bg-white flex gap-3 items-center font-nunito z-[11] dark:bg-background-dark' onSubmit={(e) => e.preventDefault()}>
+          <form className='absolute w-[92%] h-[90%] top-[5%] left-[4%] bg-white flex gap-3 items-center font-nunito z-[11] dark:bg-background-dark' onSubmit={(e) => e.preventDefault()}>
             <label htmlFor="search" className='absolute -left-[10000px]'>Search anime or manga...</label>
             <input type="text" id='search' placeholder='Search anime or manga' autoFocus='on' value={query} onChange={(e) => setQuery(e.target.value)} className='grow rounded-lg px-3 py-1 border border-background-dark' />
 
