@@ -12,6 +12,10 @@ const Browse = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
+        document.title = 'Weebixx'
+    }, [])
+
+    useEffect(() => {
         setFetchError(null);
         setIsLoading(true);
 

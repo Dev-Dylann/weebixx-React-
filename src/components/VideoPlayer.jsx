@@ -10,8 +10,10 @@ const VideoPlayer = ({ streamLinks, streamQuality, poster }) => {
         return link.quality === streamQuality;
       })
 
+      console.log(streamLinks);
+
       setStreamUrl(streamLink?.url);
-    }, [streamQuality])
+    }, [streamQuality, streamLinks])
 
     useEffect(() => {
         const loadVideo = () => {

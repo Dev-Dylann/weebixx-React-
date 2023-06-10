@@ -4,7 +4,6 @@ import { animeApi } from '../api/api';
 import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
-import Hls from 'hls.js';
 import HlsDownloader from '../modules/HLSDownloader';
 import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 
@@ -21,6 +20,10 @@ const EpisodeInfo = () => {
     useEffect(() => {
         document.title = `Weebixx - ${animeInfo.title?.romaji} Episode ${currentEpisode?.number}`;
     }, [currentEpisode])
+
+    useEffect(() => {
+        console.log(streamQuality);
+    }, [streamQuality])
 
     useEffect(() => {
         setIsLoading(true);
@@ -54,7 +57,7 @@ const EpisodeInfo = () => {
             })
 
             try {
-                const {data} = await animeApi.get(`/watch/${currentEp.id}`);
+                const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
                 console.log(data);
                 console.log(currentEp);
                 setCurrentEpisode(currentEp);
