@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: "0.0.0.0",
-    /* middlewareMode: true,
+    middlewareMode: true,
     after: (app) => {
       app.use(require("connect-history-api-fallback")());
-    }, */
+    },
   },
 });

@@ -119,7 +119,7 @@ const MangaInfo = () => {
                     </p>
 
                     <p className='flex flex-wrap justify-center gap-3 mt-2'>{mangaInfo.genres?.map(genre => (
-                            <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={mangaInfo.genres.indexOf(genre)}>{genre.trim()}</span>
+                            <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={mangaInfo.genres?.indexOf(genre)}>{genre.trim()}</span>
                         ))}</p>
 
                     <p className='mt-2'>{mangaInfo.description}</p>
@@ -148,7 +148,7 @@ const MangaInfo = () => {
                     <article className='flex flex-col'>
                         {chapterList.length ? (
                             chapterList.map(chapter => (
-                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter.id} className='py-2 border-b dark:border-b-gray-700'>
+                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 border-b dark:border-b-gray-700'>
                                     <div className='flex flex-col py-2'>
                                         <p className='line-clamp-1 text-ellipsis'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
                                         <p className='text-gray-400 text-sm'>{chapter.releasedDate}</p>
@@ -171,7 +171,7 @@ const MangaInfo = () => {
 
                     <Splide options={sliderOptions} aria-labelledby='Recommended Manga' className='flex gap-3'>
                         {mangaInfo.recommendations?.map(item => (
-                            <SplideSlide key={item.id} className=''>
+                            <SplideSlide key={item?.id} className=''>
                                 <Link to={`/manga/${item.id}`} className='h-full relative flex flex-col gap-2 pb-4'>
                                     <img src={item.image} alt={item.title.userPreferred} className='rounded-lg'/>
                                     <p className='line-clamp-2 text-ellipsis font-nunito text-sm'>{item.title.userPreferred}</p>
