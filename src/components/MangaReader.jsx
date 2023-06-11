@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import DataContext from '../context/DataContext'
+import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 import { mangaApi } from '../api/api'
-import axios from 'axios'
 import Loader from './Loader'
 import Error from './Error'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 const MangaReader = () => {
+  const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+
   const {mangaId, chapterId} = useParams();
   const [mangaInfo, setMangaInfo] = useState({});
   const [chapterList, setChapterList] = useState([]);
@@ -42,6 +45,12 @@ const MangaReader = () => {
 
     fetchMangaInfo();
   }, [])
+
+  useEffect(() => {
+    setOgTitle(`Weebixx - ${mangaInfo.title?.romaji}`);
+    setOgDesc(`Read ${mangaInfo.title?.romaji} Chapter ${chapterList[chapterIndex]?.chapterNumber} for free.`);
+    setOgImg(mangaInfo?.image);
+  }, [mangaInfo, chapterIndex])
   
   useEffect(() => {
     const decodedId = decodeURIComponent(chapterId);

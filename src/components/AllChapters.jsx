@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import DataContext from '../context/DataContext'
+import { Helmet } from 'react-helmet-async'
 import { useParams, Link } from 'react-router-dom'
 import { mangaApi } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
-import { ArrowsUpDownIcon, ChevronUpIcon } from '@heroicons/react/24/outline'
+import { ArrowsUpDownIcon } from '@heroicons/react/24/outline'
 import ToTop from './ToTop'
 
 const AllChapters = () => {
+  const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+
   const {mangaId} = useParams();
   const [mangaInfo, setMangaInfo] = useState([]);
   const [chapterList, setChapterList] = useState([]);
@@ -44,11 +48,9 @@ const AllChapters = () => {
   }, [])
 
   useEffect(() => {
-    if (mangaInfo) {
-        document.title = `Weebixx - ${mangaInfo.title?.romaji} Chapters`;
-    } else {
-        document.title = 'Weebixx'
-    }
+    setOgTitle(`Weebixx - ${mangaInfo.title?.romaji}`);
+    setOgDesc(`Read all ${mangaInfo.title?.romaji} chapters for free and discover more manga like this.`);
+    setOgImg(mangaInfo?.image)
   }, [mangaInfo])
 
   useEffect(() => {
@@ -73,6 +75,15 @@ const AllChapters = () => {
 
   return (
     <main className='dark:text-white relative'>
+
+      {/* Dynamically change the og meta tags */}
+        <Helmet prioritizeSeoTags>
+            <title>{ogTitle}</title>
+            <meta property='og:title' content={ogTitle} data-rh='true' />
+            <meta property='og:description' content={ogDesc} data-rh='true' />
+            <meta property='og:image' content={ogImg} data-rh='true' />
+        </Helmet>
+
       <section className='flex flex-col p-5 gap-4'>
             <h2 className='font-montserrat'><Link to={`/manga/${mangaInfo.id}`} className='underline'>{mangaInfo.title?.romaji}</Link> All Chapters</h2>
 

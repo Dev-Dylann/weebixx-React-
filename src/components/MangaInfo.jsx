@@ -1,4 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
+import DataContext from '../context/DataContext'
+import { Helmet } from 'react-helmet-async'
 import { useParams, Link } from 'react-router-dom'
 import { mangaApi } from '../api/api'
 import Loader from './Loader'
@@ -7,6 +9,8 @@ import { ChevronDoubleDownIcon, ArrowsUpDownIcon, ChevronRightIcon } from '@hero
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const MangaInfo = () => {
+    const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+
     const {mangaId} = useParams();
     const [mangaInfo, setMangaInfo] = useState([]);
     const [details, setDetails] = useState(false);
@@ -52,11 +56,9 @@ const MangaInfo = () => {
     }, [mangaId])
 
     useEffect(() => {
-        if (mangaInfo) {
-            document.title = `Weebixx - ${mangaInfo.title?.romaji}`;
-        } else {
-            document.title = 'Weebixx'
-        }
+        setOgTitle(`Weebixx - ${mangaInfo.title?.romaji}`);
+        setOgDesc(`Read ${mangaInfo.title?.romaji} for free and discover more manga like this.`);
+        setOgImg(mangaInfo?.image)
     }, [mangaInfo])
 
     useEffect(() => {
@@ -94,6 +96,15 @@ const MangaInfo = () => {
 
   return (
     <main className='relative pt-36'>
+
+        {/* Dynamically change the og meta tags */}
+        <Helmet prioritizeSeoTags>
+            <title>{ogTitle}</title>
+            <meta property='og:title' content={ogTitle} data-rh='true' />
+            <meta property='og:description' content={ogDesc} data-rh='true' />
+            <meta property='og:image' content={ogImg} data-rh='true' />
+        </Helmet>
+        
         <div className='absolute top-0 left-0 w-full h-[40vh] bg-cover bg-center -z-[1]' style={{backgroundColor: mangaInfo.color, backgroundImage: `url(${mangaInfo.cover})`}}>
             <div className='w-full h-full bg-gradient-to-b from-overlay-light from-60% to-white dark:from-overlay-dark dark:to-background-dark'></div>
         </div>

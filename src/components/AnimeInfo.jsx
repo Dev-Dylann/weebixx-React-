@@ -1,5 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
+import DataContext from '../context/DataContext'
 import { useParams, Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async'
 import { animeApi } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
@@ -7,6 +9,8 @@ import { ChevronDoubleDownIcon, ArrowsUpDownIcon, ChevronRightIcon } from '@hero
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const AnimeInfo = () => {
+    const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+
     const {animeId} = useParams();
     const [animeInfo, setAnimeInfo] = useState([]);
     const [episodeList, setEpisodeList] = useState([]);
@@ -55,11 +59,9 @@ const AnimeInfo = () => {
     }, [animeId])
 
     useEffect(() => {
-        if (animeInfo) {
-            document.title = `Weebixx - ${animeInfo.title?.romaji}`;
-        } else {
-            document.title = 'Weebixx'
-        }
+        setOgTitle(`Weebixx - ${animeInfo.title?.romaji}`);
+        setOgDesc(`Stream ${animeInfo.title?.romaji} for free and discover more anime like this.`);
+        setOgImg(animeInfo?.image)
     }, [animeInfo])
 
     useEffect(() => {
@@ -91,6 +93,15 @@ const AnimeInfo = () => {
 
   return (
     <main className='relative pt-36'>
+
+        {/* Dynamically change the og meta tags */}
+        <Helmet prioritizeSeoTags>
+            <title>{ogTitle}</title>
+            <meta property='og:title' content={ogTitle} data-rh='true' />
+            <meta property='og:description' content={ogDesc} data-rh='true' />
+            <meta property='og:image' content={ogImg} data-rh='true' />
+        </Helmet>
+
         <div className='absolute top-0 left-0 w-full h-[40vh] bg-cover bg-center -z-[1]' style={{backgroundColor: animeInfo.color, backgroundImage: `url(${animeInfo.cover})`}}>
             <div className='w-full h-full bg-gradient-to-b from-overlay-light from-60% to-white dark:from-overlay-dark dark:to-background-dark'></div>
         </div>

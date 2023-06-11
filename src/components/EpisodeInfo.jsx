@@ -1,4 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
+import DataContext from '../context/DataContext';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi } from '../api/api';
 import Loader from './Loader';
@@ -8,6 +10,8 @@ import HlsDownloader from '../modules/HLSDownloader';
 import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
 
 const EpisodeInfo = () => {
+    const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+
     const {animeId, episodeNumber} = useParams();
     const [animeInfo, setAnimeInfo] = useState({});
     const [episodeList, setEpisodeList] = useState([]);
@@ -18,8 +22,10 @@ const EpisodeInfo = () => {
     const [fetchError, setFetchError] = useState(null);
 
     useEffect(() => {
-        document.title = `Weebixx - ${animeInfo.title?.romaji} Episode ${currentEpisode?.number}`;
-    }, [currentEpisode])
+       setOgTitle(`Weebixx - ${animeInfo.title?.romaji} Episode ${currentEpisode?.number}`);
+       setOgDesc(`Stream ${animeInfo.title?.romaji} in different qualities for free.`);
+       setOgImg(animeInfo.image);
+    }, [animeInfo, currentEpisode])
 
     useEffect(() => {
         console.log(streamQuality);
@@ -96,6 +102,15 @@ const EpisodeInfo = () => {
 
   return (
         <main className='flex flex-col gap-4 dark:text-white pb-8'>
+
+            {/* Dynamically change the og meta tags */}
+            <Helmet prioritizeSeoTags>
+                <title>{ogTitle}</title>
+                <meta property='og:title' content={ogTitle} data-rh='true' />
+                <meta property='og:description' content={ogDesc} data-rh='true' />
+                <meta property='og:image' content={ogImg} data-rh='true' />
+            </Helmet>
+
                 <section className='px-5 py-4 flex flex-col gap-4'>
                     <div className='flex flex-col text-center font-montserrat items-center gap-1'>
                         <Link to={`/anime/${animeInfo.id}`} className='underline'>{animeInfo.title?.romaji}</Link>

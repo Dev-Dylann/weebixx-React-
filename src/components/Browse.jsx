@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import DataContext from '../context/DataContext';
+import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import {animeApi} from '../api/api'
@@ -6,14 +8,11 @@ import Slider from './Slider';
 import Error from './Error';
 
 const Browse = () => {
+    const {ogTitle, ogDesc, ogImg} = useContext(DataContext);
     const [recent, setRecent] = useState([]);
     const [trending, setTrending] = useState([]);
     const [fetchError, setFetchError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-
-    useEffect(() => {
-        document.title = 'Weebixx'
-    }, [])
 
     useEffect(() => {
         setFetchError(null);
@@ -64,6 +63,15 @@ const Browse = () => {
 
   return (
     <main className='flex flex-col gap-6 pb-16 dark:text-white'>
+
+        {/* Dynamically change the og meta tags */}
+        <Helmet prioritizeSeoTags>
+            <title>{ogTitle}</title>
+            <meta property='og:title' content={ogTitle} data-rh='true' />
+            <meta property='og:description' content={ogDesc} data-rh='true' />
+            <meta property='og:image' content={ogImg} data-rh='true' />
+        </Helmet>
+
         <section className='relative text-white font-montserrat h-[30vh] bg-black'>
             <h2 className='absolute top-5 left-5 font-bold z-[1]'>Trending Anime</h2>
             <Slider trending={trending} />

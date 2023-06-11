@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
+import DataContext from '../context/DataContext';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi } from '../api/api'
 import Loader from './Loader';
@@ -7,6 +9,8 @@ import { ArrowsUpDownIcon, ListBulletIcon, Squares2X2Icon } from '@heroicons/rea
 import ToTop from './ToTop';
 
 const AllEpisodes = () => {
+    const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+
     const {animeId} = useParams();
     const [animeInfo, setAnimeInfo] = useState([]);
     const [episodeList, setEpisodeList] = useState([]);
@@ -16,11 +20,9 @@ const AllEpisodes = () => {
     const [view, setView] = useState('List');
 
     useEffect(() => {
-        if (animeInfo) {
-            document.title = `Weebixx - ${animeInfo.title?.romaji} Episodes`;
-        } else {
-            document.title = 'Weebixx'
-        }
+        setOgTitle(`Weebixx - ${animeInfo.title?.romaji}`);
+        setOgDesc(`Stream all ${animeInfo.title?.romaji} episodes for free.`);
+        setOgImg(animeInfo?.image);
     }, [animeInfo])
 
     useEffect(() => {
@@ -66,6 +68,15 @@ const AllEpisodes = () => {
 
   return (
     <main className='dark:text-white'>
+
+        {/* Dynamically change the og meta tags */}
+        <Helmet prioritizeSeoTags>
+            <title>{ogTitle}</title>
+            <meta property='og:title' content={ogTitle} data-rh='true' />
+            <meta property='og:description' content={ogDesc} data-rh='true' />
+            <meta property='og:image' content={ogImg} data-rh='true' />
+        </Helmet>
+
         <section className='flex flex-col p-5 gap-4'>
             <h2 className='font-montserrat'><Link to={`/anime/${animeInfo.id}`} className='underline'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
 
