@@ -47,7 +47,7 @@ const MangaReader = () => {
   }, [])
 
   useEffect(() => {
-    setOgTitle(`Weebixx - ${mangaInfo.title?.romaji}`);
+    setOgTitle(`Weebixx - ${mangaInfo.title?.romaji} Chapter ${chapterList[chapterIndex]?.chapterNumber}`);
     setOgDesc(`Read ${mangaInfo.title?.romaji} Chapter ${chapterList[chapterIndex]?.chapterNumber} for free.`);
     setOgImg(mangaInfo?.image);
   }, [mangaInfo, chapterIndex])
@@ -97,9 +97,9 @@ const MangaReader = () => {
   return (
     <main className='relative'>
 
-      <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1'>
-        <p className='text-xs'>{mangaInfo.title?.romaji}</p>
-        <p className='text-sm'>Ch. {chapterList[chapterIndex]?.chapterNumber}: {chapterList[chapterIndex]?.title}</p>
+      <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1 sm:px-7'>
+        <p className='text-xs sm:text-sm'>{mangaInfo.title?.romaji}</p>
+        <p className='text-sm sm:text-base'>Ch. {chapterList[chapterIndex]?.chapterNumber}: {chapterList[chapterIndex]?.title}</p>
       </section>
 
       {isLoading && !fetchError && <Loader />}
@@ -108,7 +108,7 @@ const MangaReader = () => {
 
       {!fetchError && !isLoading && (
         
-          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white'>
+          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white sm:px-7'>
             {pages.map(page => (
               <img key={pages.page} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=https://mangadex.org/`} alt={`Page ${pages.page}`} />
             ))}
@@ -116,7 +116,7 @@ const MangaReader = () => {
 
       )}
 
-      <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5'>
+      <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5 sm:px-7'>
         <button disabled={chapterIndex === 0} onClick={() => setChapterIndex(prev => prev - 1)} className='bg-accent p-3 rounded-full disabled:invisible'><ChevronLeftIcon className='h-6 w-6' /></button>
         <button disabled={chapterIndex === chapterList.length - 1} onClick={() => setChapterIndex(prev => prev + 1)} className='bg-accent p-3 rounded-full disabled:invisible'><ChevronRightIcon className='h-6 w-6' /></button>
       </section>

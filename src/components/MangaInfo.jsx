@@ -5,8 +5,8 @@ import { useParams, Link } from 'react-router-dom'
 import { mangaApi } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
+import Recommendations from './Recommendations'
 import { ChevronDoubleDownIcon, ArrowsUpDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const MangaInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
@@ -20,15 +20,6 @@ const MangaInfo = () => {
     const [chapterList, setChapterList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [fetchError, setFetchError] = useState(null);
-    const [sliderOptions] = useState({
-        type: 'slide',
-        perPage: 3,
-        perMove: 3,
-        gap: '12px',
-        autoplay: false,
-        pagination: true,
-        arrows: false,
-    })
 
     useEffect(() => {
         setIsLoading(true);
@@ -95,7 +86,7 @@ const MangaInfo = () => {
     }, [mangaInfo, chapterSort])
 
   return (
-    <main className='relative pt-36'>
+    <main className='relative pt-36 sm:pt-28'>
 
         {/* Dynamically change the og meta tags */}
         <Helmet prioritizeSeoTags>
@@ -117,9 +108,9 @@ const MangaInfo = () => {
 
         {!isLoading && !fetchError && (
             <>
-                <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white'>
+                <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7'>
                     <img src={mangaInfo.image} alt={mangaInfo.id} className='w-1/3 rounded-lg' />
-                    <h2 className='text-2xl font-montserrat'>{mangaInfo.title?.romaji}</h2>
+                    <h2 className='text-2xl font-montserrat sm:font-bold'>{mangaInfo.title?.romaji}</h2>
 
                     <p className='flex items-center gap-3 text-gray-400 text-lg'>
                         {mangaInfo.chapters?.length} Chapters
@@ -133,13 +124,13 @@ const MangaInfo = () => {
                             <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={mangaInfo.genres?.indexOf(genre)}>{genre.trim()}</span>
                         ))}</p>
 
-                    <p className='mt-2'>{mangaInfo.description}</p>
+                    <p className='mt-2 sm:text-lg'>{mangaInfo.description}</p>
 
                     <button ref={expandRef} type='button' onClick={(e) => setDetails(prev => !prev)} className='p-2 rounded-full transition-all duration-300'>
                         <ChevronDoubleDownIcon className='h-6 w-6 dark:stroke-white' />
                     </button>
 
-                    <article ref={detailsRef} className='hidden grid-cols-2 gap-x-3 gap-y-1 text-sm p-3 text-gray-400'>
+                    <article ref={detailsRef} className='hidden grid-cols-2 gap-x-3 gap-y-1 text-sm p-3 text-gray-400 sm:text-base'>
                         <p>Released: {mangaInfo.releaseDate}</p>
                         <p>Rating: {mangaInfo.rating}/100</p>
                         
@@ -147,9 +138,9 @@ const MangaInfo = () => {
                     </article>
                 </section>
 
-                <section className='dark:text-white p-5 py-8 flex flex-col gap-3'>
+                <section className='dark:text-white p-5 py-8 flex flex-col gap-3 sm:px-7'>
                     <div className='flex items-center justify-between'>
-                        <h3 className='text-lg font-montserrat'>Chapters</h3>
+                        <h3 className='text-lg font-montserrat sm:font-bold'>Chapters</h3>
                         <button type='button' className='flex items-center gap-2' onClick={() => setChapterSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
                             <p className='text-sm'>{chapterSort}</p>
                             <ArrowsUpDownIcon className='h-6 w-6 dark:stroke-white' />
@@ -159,39 +150,30 @@ const MangaInfo = () => {
                     <article className='flex flex-col'>
                         {chapterList.length ? (
                             chapterList.map(chapter => (
-                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 border-b dark:border-b-gray-700'>
+                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'>
                                     <div className='flex flex-col py-2'>
-                                        <p className='line-clamp-1 text-ellipsis'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
-                                        <p className='text-gray-400 text-sm'>{chapter.releasedDate}</p>
+                                        <p className='line-clamp-1 text-ellipsis sm:text-lg'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
+                                        <p className='text-gray-400 text-sm sm:text-base'>{chapter.releasedDate}</p>
                                     </div>
                                 </Link>
                             ))
                     ) : (
-                        <p className='text-center py-8'>No chapters have been released yet.</p>
+                        <p className='text-center py-8 sm:text-lg'>No chapters have been released yet.</p>
                      )}
 
                 </article>
 
-                <Link to={`/chapterlist/${mangaId}`} className='bg-accent text-sm p-2 rounded-lg dark:text-[#1a1a1a] self-end flex items-center gap-1'>
+                <Link to={`/chapterlist/${mangaId}`} className='bg-accent text-sm p-2 rounded-lg dark:text-[#1a1a1a] self-end flex items-center gap-1 hover:brightness-90 transition-all sm:text-base'>
                     See All Chapters
                     <ChevronRightIcon className='h-6 w-6' />
                 </Link>
 
-                <article className='py-8 flex flex-col gap-4'>
-                    <h3 className='text-lg font-montserrat'>More Like This...</h3>
+                </section>
 
-                    <Splide options={sliderOptions} aria-labelledby='Recommended Manga' className='flex gap-3'>
-                        {mangaInfo.recommendations?.map(item => (
-                            <SplideSlide key={item?.id} className=''>
-                                <Link to={`/manga/${item.id}`} className='h-full relative flex flex-col gap-2 pb-4'>
-                                    <img src={item.image} alt={item.title.userPreferred} className='rounded-lg'/>
-                                    <p className='line-clamp-2 text-ellipsis font-nunito text-sm'>{item.title.userPreferred}</p>
-                                </Link>
-                            </SplideSlide>
-                        ))}
-                    </Splide>
-                </article>
+                <section className='py-8 flex flex-col gap-4 dark:text-white'>
+                    <h3 className='text-lg font-montserrat px-5 sm:font-bold sm:px-7'>More Like This...</h3>
 
+                    <Recommendations mediaInfo={mangaInfo} />
                 </section>
             </>
         )}

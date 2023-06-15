@@ -8,9 +8,13 @@ const Slider = ({ trending }) => {
         type: 'loop',
         autoplay: true,
         pagination: true,
-        arrows: false,
+        arrows: true,
         speed: 750,
-        cover: true
+        cover: true,
+        classes: {
+            arrow: 'splide__arrow slider-arrow',
+            page: 'splide__pagination__page slider-page'
+        }
     }) 
 
   return (
@@ -19,7 +23,7 @@ const Slider = ({ trending }) => {
             <SplideSlide key={trending.indexOf(item)} className='h-full'>
                 <Link to={`anime/${item.id}`} className='h-full flex items-center relative'>
                     <img src={item.image} alt={item.title.userPreferred} className='w-full brightness-[.7] hover:scale-110 transition-all'/>
-                    <p className='absolute bottom-8 left-5 w-[80%] h-fit line-clamp-2 text-ellipsis font-nunito'>{item.title.userPreferred}</p>
+                    <p className='absolute bottom-8 left-5 w-[80%] h-fit line-clamp-2 text-ellipsis font-nunito sm:text-lg sm:left-7'>{item.title.userPreferred}</p>
                 </Link>
             </SplideSlide>
         ))}

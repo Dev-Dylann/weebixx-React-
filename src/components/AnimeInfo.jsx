@@ -5,8 +5,8 @@ import { Helmet } from 'react-helmet-async'
 import { animeApi } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
+import Recommendations from './Recommendations'
 import { ChevronDoubleDownIcon, ArrowsUpDownIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
-import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const AnimeInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
@@ -20,16 +20,7 @@ const AnimeInfo = () => {
     const [details, setDetails] = useState(false);
     const detailsRef = useRef();
     const expandRef = useRef();
-    const [sliderOptions] = useState({
-        type: 'slide',
-        perPage: 3,
-        perMove: 3,
-        gap: '12px',
-        autoplay: false,
-        pagination: true,
-        arrows: false,
-    }) 
-
+    
     useEffect(() => {
         setIsLoading(true);
         setFetchError(null);
@@ -92,7 +83,7 @@ const AnimeInfo = () => {
     }, [animeInfo, episodeSort])
 
   return (
-    <main className='relative pt-36'>
+    <main className='relative pt-36 sm:pt-28'>
 
         {/* Dynamically change the og meta tags */}
         <Helmet prioritizeSeoTags>
@@ -114,9 +105,9 @@ const AnimeInfo = () => {
 
         {!isLoading && !fetchError && (
             <>
-            <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white'>
-            <img src={animeInfo.image} alt={animeInfo.id} className='w-1/3 rounded-lg' />
-            <h2 className='text-2xl font-montserrat'>{animeInfo.title?.romaji}</h2>
+            <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7'>
+            <img src={animeInfo.image} alt={animeInfo.id} className='w-1/3 rounded-lg sm:max-w-[200px]' />
+            <h2 className='text-2xl font-montserrat sm:font-bold'>{animeInfo.title?.romaji}</h2>
 
             <p className='flex items-center gap-3 text-gray-400 text-lg'>
                 {animeInfo.currentEpisode} Episodes
@@ -127,16 +118,17 @@ const AnimeInfo = () => {
             </p>
 
             <p className='flex flex-wrap justify-center gap-3 mt-2'>{animeInfo.genres?.map(genre => (
-                            <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={animeInfo.genres.indexOf(genre)}>{genre.trim()}</span>
-                        ))}</p>
+                <span className='bg-accent text-[#1a1a1a] dark:border dark:border-accent dark:bg-transparent dark:text-white px-3 py-1 text-center rounded-full' key={animeInfo.genres.indexOf(genre)}>{genre}</span>
+            ))}
+            </p>
 
-            <p className='mt-2'>{animeInfo.description}</p>
+            <p className='mt-2 sm:text-lg'>{animeInfo.description}</p>
 
             <button ref={expandRef} type='button' onClick={(e) => setDetails(prev => !prev)} className='p-2 rounded-full transition-all duration-300'>
                 <ChevronDoubleDownIcon className='h-6 w-6 dark:stroke-white' />
             </button>
 
-            <article ref={detailsRef} className='hidden grid-cols-2 gap-x-3 gap-y-1 text-sm p-3 text-gray-400'>
+            <article ref={detailsRef} className='hidden grid-cols-2 gap-x-3 gap-y-1 text-sm p-3 text-gray-400 sm:text-base'>
                 <p>Released: {animeInfo.releaseDate}</p>
                 <p>Adult Content: {animeInfo.isAdullt ? 'Yes' : 'No'}</p>
                 <p>Rating: {animeInfo.rating}/100</p>
@@ -146,9 +138,9 @@ const AnimeInfo = () => {
             </article>
         </section>
 
-        <section className='dark:text-white p-5 py-8 flex flex-col gap-3'>
+        <section className='dark:text-white p-5 py-8 flex flex-col gap-3 sm:px-7'>
             <div className='flex items-center justify-between'>
-                <h3 className='text-lg font-montserrat'>Episodes</h3>
+                <h3 className='text-lg font-montserrat sm:font-bold'>Episodes</h3>
                 <button type='button' className='flex items-center gap-2' onClick={() => setEpisodeSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
                     <p className='text-sm'>{episodeSort}</p>
                     <ArrowsUpDownIcon className='h-6 w-6 dark:stroke-white' />
@@ -158,40 +150,31 @@ const AnimeInfo = () => {
             <article className='flex flex-col'>
                 {episodeList.length ? (
                     episodeList.map(episode => (
-                        <Link  to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className='grid grid-cols-4 gap-x-2 py-4 border-b dark:border-b-gray-700'>
+                        <Link  to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className='grid grid-cols-4 gap-x-2 py-4 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'>
                             <img src={episode.image} alt={`Ep. ${episode.number}`} className='col-span-1 h-full' />
                             <div className='col-span-3 flex flex-col py-2'>
-                                <p className='line-clamp-1 text-ellipsis'>{episode.number}. {episode.title}</p>
-                                <p className='text-gray-400 text-sm'>{episode.airDate?.slice(0, episode.airDate.indexOf('T'))}</p>
+                                <p className='line-clamp-1 text-ellipsis sm:text-lg'>{episode.number}. {episode.title}</p>
+                                <p className='text-gray-400 text-sm sm:text-base'>{episode.airDate?.slice(0, episode.airDate.indexOf('T'))}</p>
                             </div>
                         </Link>
                     ))
                 ) : (
-                    <p className='text-center py-8'>No episodes have been released yet.</p>
+                    <p className='text-center py-8 sm:text-lg'>No episodes have been released yet.</p>
                 )}
 
             </article>
 
-            <Link to={`/episodelist/${animeId}`} className='bg-accent text-sm p-2 rounded-lg dark:text-[#1a1a1a] self-end flex items-center gap-1'>
+            <Link to={`/episodelist/${animeId}`} className='bg-accent text-sm p-2 rounded-lg dark:text-[#1a1a1a] self-end flex items-center gap-1 hover:brightness-90 transition-all sm:text-base'>
                 See All Episodes
                 <ChevronRightIcon className='h-6 w-6' />
             </Link>
 
-            <article className='py-8 flex flex-col gap-4'>
-                <h3 className='text-lg font-montserrat'>More Like This...</h3>
+        </section>
 
-                <Splide options={sliderOptions} aria-labelledby='Recommended Anime' className='flex gap-3'>
-                    {animeInfo.recommendations.map(item => (
-                        <SplideSlide key={item.id} className=''>
-                            <Link to={`/anime/${item.id}`} className='h-full relative flex flex-col gap-2 pb-4'>
-                                <img src={item.image} alt={item.title.userPreferred} className='rounded-lg'/>
-                                <p className='line-clamp-2 text-ellipsis font-nunito text-sm'>{item.title.userPreferred}</p>
-                            </Link>
-                        </SplideSlide>
-                    ))}
-                </Splide>
-            </article>
+        <section className='py-8 flex flex-col gap-4 dark:text-white'>
+            <h3 className='text-lg font-montserrat px-5 sm:font-bold sm:px-7'>More Like This...</h3>
 
+            <Recommendations mediaInfo={animeInfo} />
         </section>
 
         </>

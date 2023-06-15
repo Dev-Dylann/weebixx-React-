@@ -26,7 +26,7 @@ const SearchAnime = ({ query }) => {
             } catch(err) {
                 if (err.response) {
                     console.log(err.response);
-                    setFetchError(err.response);
+                    setFetchError(err.response.data.message);
                 } else {
                     console.log(err.message);
                     setFetchError(err.message);
@@ -48,18 +48,18 @@ const SearchAnime = ({ query }) => {
         {!isLoading && !fetchError && !searchResults.length && <Error fetchError={`No results found for ${query}`} />}
 
         {!isLoading && !fetchError && searchResults.length && (
-            <section className='grid grid-cols-3 gap-3 pb-20 relative dark:text-white'>
+            <section className='grid grid-cols-3 gap-3 pb-20 relative dark:text-white sm:grid-cols-4 sm:gap-5'>
                 {searchResults.map(result => (
                     <Link to={`/anime/${result.id}`} key={result.id} className='relative h-full'>
                         <img src={result.image} alt='' className='rounded-lg shadow-lg' />
-                        <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a]'>{result.releaseDate}</p>
-                        <p className='mt-1 text-sm line-clamp-2 text-ellipsis'>{result.title.userPreferred}</p>
+                        <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a] sm:text-sm'>{result.releaseDate}</p>
+                        <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base'>{result.title.userPreferred}</p>
                     </Link>
                 ))}
 
-                <button disabled={page === 1} onClick={() => setPage(prev => prev - 1)} className='absolute bottom-3 left-0 p-2 rounded-lg bg-accent text-sm disabled:hidden dark:text-[#1a1a1a]'><ChevronLeftIcon className='h-6 w-6 inline' />Previous Page</button>
+                <button disabled={page === 1} onClick={() => setPage(prev => prev - 1)} className='absolute bottom-3 left-0 p-2 rounded-lg bg-accent text-sm disabled:hidden dark:text-[#1a1a1a] sm:text-base'><ChevronLeftIcon className='h-6 w-6 inline' />Previous Page</button>
 
-                <button disabled={!nextPage} onClick={() => setPage(prev => prev + 1)} className='absolute bottom-3 right-0 p-2 rounded-lg bg-accent text-sm disabled:hidden dark:text-[#1a1a1a]'>Next Page<ChevronRightIcon className='h-6 w-6 inline' /></button>
+                <button disabled={!nextPage} onClick={() => setPage(prev => prev + 1)} className='absolute bottom-3 right-0 p-2 rounded-lg bg-accent text-sm disabled:hidden dark:text-[#1a1a1a] sm:text-base'>Next Page<ChevronRightIcon className='h-6 w-6 inline' /></button>
             </section>
         )} 
     </>

@@ -7,7 +7,7 @@ import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
 import HlsDownloader from '../modules/HLSDownloader';
-import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon } from '@heroicons/react/24/outline';
+import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon, ArrowDownTrayIcon } from '@heroicons/react/24/outline';
 
 const EpisodeInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
@@ -111,15 +111,15 @@ const EpisodeInfo = () => {
                 <meta property='og:image' content={ogImg} data-rh='true' />
             </Helmet>
 
-                <section className='px-5 py-4 flex flex-col gap-4'>
+                <section className='px-5 py-4 flex flex-col gap-4 sm:px-7'>
                     <div className='flex flex-col text-center font-montserrat items-center gap-1'>
-                        <Link to={`/anime/${animeInfo.id}`} className='underline'>{animeInfo.title?.romaji}</Link>
-                        <p>Episode {currentEpisode.number}</p>
+                        <Link to={`/anime/${animeInfo.id}`} className='underline sm:text-lg sm:font-bold'>{animeInfo.title?.romaji}</Link>
+                        <p className='sm:text-lg'>Episode {currentEpisode.number}</p>
                     </div>
 
                     <VideoPlayer streamLinks={streamLinks} streamQuality={streamQuality} poster={currentEpisode.image} />
 
-                    <select onChange={handleQualityChange} name="quality" id="quality" className='mx-auto px-2 bg-white dark:bg-transparent outline outline-1 outline-gray-400 rounded-md '>
+                    <select onChange={handleQualityChange} name="quality" id="quality" className='mx-auto px-2 bg-white dark:bg-transparent outline outline-1 outline-gray-400 rounded-md sm:text-lg'>
                         {streamLinks.map(link => (
                             <option key={streamLinks.indexOf(link)}  value={link.quality}>{link.quality}</option>
                         ))}
@@ -138,19 +138,22 @@ const EpisodeInfo = () => {
 
             {!fetchError && !isLoading && (
                 <>
-                <section className='px-5'>
-                    <h2 className='text-lg font-montserrat'>{currentEpisode.title}</h2>
+                <section className='px-5 sm:px-7'>
+                    <h2 className='text-lg font-montserrat sm:font-bold sm:text-xl'>{currentEpisode.title}</h2>
 
-                    <p className='text-gray-400 text-sm'>Released: {currentEpisode.airDate?.slice(0, currentEpisode.airDate.indexOf('T'))}</p>
+                    <p className='text-gray-400 text-sm sm:text-base'>Released: {currentEpisode.airDate?.slice(0, currentEpisode.airDate.indexOf('T'))}</p>
 
-                    <p className='mt-2'>{currentEpisode.description}</p>
+                    <p className='mt-2 sm:text-lg'>{currentEpisode.description}</p>
 
-                    <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent  p-2 rounded-lg mt-4'>Download Episode</button>
+                    <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent p-2 rounded-lg mt-4 flex gap-2'>
+                        <ArrowDownTrayIcon className='h-6 w-6' />
+                        Download Episode
+                    </button>
 
                 </section>
 
-                <Link to={`/episodelist/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm'>{animeInfo.title?.romaji} Episode List</Link>
-                <Link to={`/anime/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm'>Back to anime details</Link>
+                <Link to={`/episodelist/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base'>{animeInfo.title?.romaji} Episode List</Link>
+                <Link to={`/anime/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base'>Back to anime details</Link>
 
                 </>
             )}

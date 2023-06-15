@@ -84,11 +84,11 @@ const AllChapters = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-      <section className='flex flex-col p-5 gap-4'>
-            <h2 className='font-montserrat'><Link to={`/manga/${mangaInfo.id}`} className='underline'>{mangaInfo.title?.romaji}</Link> All Chapters</h2>
+      <section className='flex flex-col p-5 gap-4 sm:px-7'>
+            <h2 className='font-montserrat sm:text-lg'><Link to={`/manga/${mangaInfo.id}`} className='underline sm:font-bold sm:no-underline sm:hover:underline'>{mangaInfo.title?.romaji}</Link> All Chapters</h2>
 
             <div className='flex items-center self-end gap-4'>
-                <button type='button' className='flex gap-2 items-center' onClick={() => setChapterSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
+                <button type='button' className='flex gap-2 items-center p-1 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all' onClick={() => setChapterSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
                     <p className='text-sm'>{chapterSort}</p>
                     <ArrowsUpDownIcon className='h-6 w-6' />
                 </button>
@@ -103,15 +103,15 @@ const AllChapters = () => {
         <section className='flex flex-col'>
           {chapterList ? (
               chapterList.map(chapter => (
-                  <Link to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter.id} className='py-2 px-5 border-b dark:border-b-gray-700'>
+                  <Link to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter.id} className='py-2 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7'>
                       <div className='flex flex-col py-2'>
-                          <p className='line-clamp-1 text-ellipsis'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
-                          <p className='text-gray-400 text-sm'>{chapter.releasedDate}</p>
+                          <p className='line-clamp-1 text-ellipsis sm:text-lg'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
+                          <p className='text-gray-400 text-sm sm:text-base'>{chapter.releasedDate}</p>
                       </div>
                   </Link>
               ))
           ) : (
-              <p className='text-center col-span-full'>No chapters have been released yet.</p>
+              <p className='text-center col-span-full sm:text-lg'>No chapters have been released yet.</p>
           )}
 
         </section>

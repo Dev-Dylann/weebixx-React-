@@ -13,8 +13,12 @@ body,
     min-height: -webkit-fill-available;
 }
 
-.splide-arrow {
-    color: white;
+.slider-arrow {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.slider-page {
+    background-color: #ccc;
 }
 
 .loading {

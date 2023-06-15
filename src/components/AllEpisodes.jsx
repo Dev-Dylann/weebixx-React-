@@ -77,11 +77,11 @@ const AllEpisodes = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-        <section className='flex flex-col p-5 gap-4'>
-            <h2 className='font-montserrat'><Link to={`/anime/${animeInfo.id}`} className='underline'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
+        <section className='flex flex-col p-5 gap-4 sm:px-7'>
+            <h2 className='font-montserrat sm:text-lg'><Link to={`/anime/${animeInfo.id}`} className='underline sm:font-bold'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
 
             <div className='flex items-center self-end gap-4'>
-                <button type='button' className='flex gap-2 items-center' onClick={() => setEpisodeSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
+                <button type='button' className='flex gap-2 items-center p-1 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all' onClick={() => setEpisodeSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
                     <p className='text-sm'>{episodeSort}</p>
                     <ArrowsUpDownIcon className='h-6 w-6' />
                 </button>
@@ -98,14 +98,14 @@ const AllEpisodes = () => {
         {fetchError && !isLoading && <Error fetchError={fetchError} />}
 
         {!fetchError && !isLoading && (
-            <section className={view === 'List' ? 'flex flex-col' : 'grid grid-cols-3 gap-3 px-5'}>
+            <section className={view === 'List' ? 'flex flex-col' : 'grid grid-cols-3 gap-3 px-5 sm:px-7 sm:gap-5'}>
                 {episodeList?.length ? (
                     episodeList.map(episode => (
-                        <Link to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className={view === 'List' ? 'grid grid-cols-4 gap-x-2 py-4 px-5 border-b dark:border-b-gray-700' : 'flex flex-col gap-2'}>
+                        <Link to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className={view === 'List' ? 'grid grid-cols-4 gap-x-2 py-4 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7' : 'flex flex-col gap-2 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'}>
                             <img src={episode.image} alt={`Ep. ${episode.number}`} className={view === 'List' ? 'col-span-1 h-full' : ''} />
                             <div className='col-span-3 flex flex-col py-2'>
-                                <p className={view === 'List' ? 'line-clamp-1 text-ellipsis' : 'line-clamp-2 text-ellipsis text-sm'}>{episode.number}. {episode.title}</p>
-                                <p className={view === 'List' ? 'text-gray-400 text-sm' : 'text-gray-400 text-xs'}>{episode.airDate?.slice(0, episode.airDate.indexOf('T'))}</p>
+                                <p className={view === 'List' ? 'line-clamp-1 text-ellipsis sm:text-lg' : 'line-clamp-2 text-ellipsis text-sm sm:text-base'}>{episode.number}. {episode.title}</p>
+                                <p className={view === 'List' ? 'text-gray-400 text-sm sm:text-base' : 'text-gray-400 text-xs sm:text-sm'}>{episode.airDate?.slice(0, episode.airDate.indexOf('T'))}</p>
                             </div>
                         </Link>
                     ))

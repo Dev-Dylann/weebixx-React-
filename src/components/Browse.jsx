@@ -72,13 +72,13 @@ const Browse = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-        <section className='relative text-white font-montserrat h-[30vh] bg-black'>
-            <h2 className='absolute top-5 left-5 font-bold z-[1]'>Trending Anime</h2>
+        <section className='relative text-white font-montserrat h-[30vh] bg-black sm:h-[35vh]'>
+            <h2 className='absolute top-5 left-5 font-bold z-[1] sm:text-lg sm:left-7'>Trending Anime</h2>
             <Slider trending={trending} />
         </section>
 
-        <section className='px-5 flex flex-col gap-3'>
-            <h2 className='font-montserrat font-bold'>Recent Anime Releases</h2>
+        <section className='px-5 flex flex-col gap-3 sm:px-7'>
+            <h2 className='font-montserrat font-bold sm:text-lg'>Recent Anime Releases</h2>
 
             {isLoading && !fetchError && <Loader />}
 
@@ -87,12 +87,12 @@ const Browse = () => {
             )}
 
             {!fetchError && !isLoading && (
-                <article className='grid grid-cols-3 gap-3'>
+                <article className='grid grid-cols-3 gap-3 sm:grid-cols-4 sm:gap-5'>
                     {recent.map(episode => (
-                        <Link to={`episode/${episode.id}/${episode.episodeNumber}`} key={recent.indexOf(episode)} className='relative h-full'>
+                        <Link to={`episode/${episode.id}/${episode.episodeNumber}`} key={recent.indexOf(episode)} className='relative h-full hover:scale-105 transition-all'>
                             <img src={episode.image} alt='' className='rounded-lg shadow-lg' />
-                            <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a]'>Ep. {episode.episodeNumber}</p>
-                            <p className='mt-1 text-sm line-clamp-2 text-ellipsis'>{episode.title.userPreferred}</p>
+                            <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a] sm:text-sm'>Ep. {episode.episodeNumber}</p>
+                            <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base'>{episode.title.userPreferred}</p>
                         </Link>
                     ))}
                 </article>

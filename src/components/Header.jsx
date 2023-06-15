@@ -13,12 +13,12 @@ const Header = () => {
   const [query, setQuery] = useState('');
 
   return (
-    <header className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark'>
+    <header className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7'>
         <button className='z-10' onClick={() => setNavStatus(prev => !prev)}>
           {!navStatus ? <Bars3Icon className='h-8 w-8 dark:stroke-white' /> : <XMarkIcon className='h-8 w-8 dark:stroke-white' />}
         </button>
 
-        <Link to='/' className='flex justify-center z-10' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-2/5' /></Link>
+        <Link to='/' className='flex justify-center z-10' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-2/5 max-w-[300px]' /></Link>
 
         <button className='z-10' onClick={() => setSearchIcon(prev => !prev)}>
           <MagnifyingGlassIcon className='h-6 w-6 dark:stroke-white'/>
