@@ -6,6 +6,7 @@ import Loader from './Loader';
 import {animeApi} from '../api/api'
 import Slider from './Slider';
 import Error from './Error';
+import ToTop from './ToTop';
 
 const Browse = () => {
     const {ogTitle, ogDesc, ogImg} = useContext(DataContext);
@@ -24,7 +25,7 @@ const Browse = () => {
                     params: {
                         page: 1,
                         perPage: 50,
-                        provider: 'gogoanime'
+                        provider: 'crunchyroll'
                     }
                 });
                 console.log(data);
@@ -74,6 +75,7 @@ const Browse = () => {
 
         <section className='relative text-white font-montserrat h-[30vh] bg-black sm:h-[35vh]'>
             <h2 className='absolute top-5 left-5 font-bold z-[1] sm:text-lg sm:left-7'>Trending Anime</h2>
+
             <Slider trending={trending} />
         </section>
 
@@ -98,6 +100,8 @@ const Browse = () => {
                 </article>
             )}
         </section>
+
+        <ToTop />
     </main>
   )
 }

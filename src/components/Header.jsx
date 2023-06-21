@@ -13,7 +13,7 @@ const Header = () => {
   const [query, setQuery] = useState('');
 
   return (
-    <header className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7'>
+    <header className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7 md:px-10'>
         <button className='z-10' onClick={() => setNavStatus(prev => !prev)}>
           {!navStatus ? <Bars3Icon className='h-8 w-8 dark:stroke-white' /> : <XMarkIcon className='h-8 w-8 dark:stroke-white' />}
         </button>
