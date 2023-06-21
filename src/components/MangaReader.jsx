@@ -117,8 +117,8 @@ const MangaReader = () => {
       )}
 
       <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5 sm:px-7'>
-        <button disabled={chapterIndex === 0} onClick={() => setChapterIndex(prev => prev - 1)} className='bg-accent p-3 rounded-full disabled:invisible'><ChevronLeftIcon className='h-6 w-6' /></button>
-        <button disabled={chapterIndex === chapterList.length - 1} onClick={() => setChapterIndex(prev => prev + 1)} className='bg-accent p-3 rounded-full disabled:invisible'><ChevronRightIcon className='h-6 w-6' /></button>
+        <button disabled={chapterIndex === 0} onClick={() => setChapterIndex(prev => prev - 1)} className='bg-accent p-3 rounded-full disabled:invisible hover:brightness-90'><ChevronLeftIcon className='h-6 w-6 sm:w-8 sm:h-8' /></button>
+        <button disabled={chapterIndex === chapterList.length - 1} onClick={() => setChapterIndex(prev => prev + 1)} className='bg-accent p-3 rounded-full disabled:invisible hover:brightness-90'><ChevronRightIcon className='h-6 w-6 sm:w-8 sm:h-8' /></button>
       </section>
       
     </main>

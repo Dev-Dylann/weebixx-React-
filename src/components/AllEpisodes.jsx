@@ -78,7 +78,7 @@ const AllEpisodes = () => {
         </Helmet>
 
         <section className='flex flex-col p-5 gap-4 sm:px-7'>
-            <h2 className='font-montserrat sm:text-lg'><Link to={`/anime/${animeInfo.id}`} className='underline sm:font-bold'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
+            <h2 className='font-montserrat sm:text-lg'><Link to={`/anime/${animeInfo.id}`} className='underline sm:font-bold sm:no-underline sm:hover:underline'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
 
             <div className='flex items-center self-end gap-4'>
                 <button type='button' className='flex gap-2 items-center p-1 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all' onClick={() => setEpisodeSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
@@ -86,7 +86,7 @@ const AllEpisodes = () => {
                     <ArrowsUpDownIcon className='h-6 w-6' />
                 </button>
 
-                <button type='button' className='self-end flex gap-2 items-center' onClick={() => setView(prev => prev === 'List' ? 'Grid' : 'List')}>
+                <button type='button' className='self-end flex gap-2 items-center p-1 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all' onClick={() => setView(prev => prev === 'List' ? 'Grid' : 'List')}>
                     <p className='text-sm'>{view}</p>
                     {view === 'List' ? <ListBulletIcon className='h-6 w-6' /> : <Squares2X2Icon className='h-6 w-6' />}
                 </button>

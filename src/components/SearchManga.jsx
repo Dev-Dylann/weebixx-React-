@@ -54,7 +54,7 @@ const SearchManga = ({ query }) => {
         {!isLoading && !fetchError && searchResults.length && (
             <section className='grid grid-cols-3 gap-3 pb-20 relative dark:text-white sm:grid-cols-4 sm:gap-5'>
                 {searchResults.map(result => (
-                    <Link to={`/manga/${result.id}`} key={result.id} className='relative h-full'>
+                    <Link to={`/manga/${result.id}`} key={result.id} className='relative h-full hover:scale-105 transition-all'>
                         <img src={result.image} alt='' className='rounded-lg shadow-lg' />
                         <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base'>{result.title.userPreferred}</p>
                     </Link>

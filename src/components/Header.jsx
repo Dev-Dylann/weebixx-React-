@@ -32,7 +32,7 @@ const Header = () => {
             <input type="text" id='search' placeholder='Search anime or manga' autoFocus='on' value={query} onChange={(e) => setQuery(e.target.value)} className='grow rounded-lg px-3 py-1 border border-background-dark' />
 
             <Link to={`search/${query}`} onClick={() => setSearchIcon(prev => !prev)}>
-              <button type='submit' className='font-bold bg-accent px-3 py-1 rounded-md'>Search</button>
+              <button type='submit' className='font-bold bg-accent px-3 py-1 rounded-md hover:brightness-90'>Search</button>
             </Link>
 
             <button type='button' onClick={() => setSearchIcon(prev => !prev)}>

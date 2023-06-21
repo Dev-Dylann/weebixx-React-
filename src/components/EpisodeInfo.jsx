@@ -113,7 +113,7 @@ const EpisodeInfo = () => {
 
                 <section className='px-5 py-4 flex flex-col gap-4 sm:px-7'>
                     <div className='flex flex-col text-center font-montserrat items-center gap-1'>
-                        <Link to={`/anime/${animeInfo.id}`} className='underline sm:text-lg sm:font-bold'>{animeInfo.title?.romaji}</Link>
+                        <Link to={`/anime/${animeInfo.id}`} className='underline sm:text-lg sm:font-bold sm:no-underline sm:hover:underline'>{animeInfo.title?.romaji}</Link>
                         <p className='sm:text-lg'>Episode {currentEpisode.number}</p>
                     </div>
 
@@ -126,9 +126,9 @@ const EpisodeInfo = () => {
                     </select>
 
                     <div className='flex justify-between items-center dark:text-[#1a1a1a]' style={currentEpisode.number === 1 ? {justifyContent: 'flex-end'} : currentEpisode.number === episodeList.length ? {justifyContent: 'flex-start'} : {}}>
-                        <Link to={`/episode/${animeInfo.id}/${currentEpisode.number - 1}`} className='flex text-sm items-center gap-1 px-2 py-1 rounded-lg bg-accent' style={currentEpisode.number === 1 ? {display: 'none'} : {}}><ChevronDoubleLeftIcon className='h-6 w-6' />Prev</Link>
+                        <Link to={`/episode/${animeInfo.id}/${currentEpisode.number - 1}`} className='flex text-sm items-center gap-1 px-2 py-1 rounded-lg bg-accent hover:brightness-90' style={currentEpisode.number === 1 ? {display: 'none'} : {}}><ChevronDoubleLeftIcon className='h-6 w-6' />Prev</Link>
 
-                        <Link to={`/episode/${animeInfo.id}/${currentEpisode.number + 1}`} className='flex text-sm items-center gap-1 px-2 py-1 rounded-lg bg-accent' style={currentEpisode.number === episodeList.length ? {display: 'none'} : {}}>Next<ChevronDoubleRightIcon className='h-6 w-6' /></Link>
+                        <Link to={`/episode/${animeInfo.id}/${currentEpisode.number + 1}`} className='flex text-sm items-center gap-1 px-2 py-1 rounded-lg bg-accent hover:brightness-90' style={currentEpisode.number === episodeList.length ? {display: 'none'} : {}}>Next<ChevronDoubleRightIcon className='h-6 w-6' /></Link>
                     </div>
                 </section>
 
@@ -145,15 +145,15 @@ const EpisodeInfo = () => {
 
                     <p className='mt-2 sm:text-lg'>{currentEpisode.description}</p>
 
-                    <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent p-2 rounded-lg mt-4 flex gap-2'>
+                    <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent p-2 rounded-lg mt-4 flex gap-2 hover:brightness-90'>
                         <ArrowDownTrayIcon className='h-6 w-6' />
                         Download Episode
                     </button>
 
                 </section>
 
-                <Link to={`/episodelist/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base'>{animeInfo.title?.romaji} Episode List</Link>
-                <Link to={`/anime/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base'>Back to anime details</Link>
+                <Link to={`/episodelist/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base sm:px-7'>{animeInfo.title?.romaji} Episode List</Link>
+                <Link to={`/anime/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base sm:px-7'>Back to anime details</Link>
 
                 </>
             )}
