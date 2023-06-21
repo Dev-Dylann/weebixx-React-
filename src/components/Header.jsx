@@ -14,14 +14,14 @@ const Header = () => {
 
   return (
     <header className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7 md:px-10'>
-        <button className='z-10' onClick={() => setNavStatus(prev => !prev)}>
+        <button className='z-10 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333]' onClick={() => setNavStatus(prev => !prev)}>
           {!navStatus ? <Bars3Icon className='h-8 w-8 dark:stroke-white' /> : <XMarkIcon className='h-8 w-8 dark:stroke-white' />}
         </button>
 
-        <Link to='/' className='flex justify-center z-10' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-2/5 max-w-[300px]' /></Link>
+        <Link to='/' className='flex justify-center z-10' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-2/5 max-w-[300px] md:max-w-[375px]' /></Link>
 
-        <button className='z-10' onClick={() => setSearchIcon(prev => !prev)}>
-          <MagnifyingGlassIcon className='h-6 w-6 dark:stroke-white'/>
+        <button className='z-10 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333]' onClick={() => setSearchIcon(prev => !prev)}>
+          <MagnifyingGlassIcon className='h-7 w-7 dark:stroke-white'/>
         </button>
 
         <Nav navStatus={navStatus} />
@@ -35,7 +35,7 @@ const Header = () => {
               <button type='submit' className='font-bold bg-accent px-3 py-1 rounded-md hover:brightness-90'>Search</button>
             </Link>
 
-            <button type='button' onClick={() => setSearchIcon(prev => !prev)}>
+            <button type='button' onClick={() => setSearchIcon(prev => !prev)} className='rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333]'>
               <XMarkIcon className='h-6 w-6 dark:stroke-white' />
             </button>
           </form>

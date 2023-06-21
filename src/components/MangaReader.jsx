@@ -97,7 +97,7 @@ const MangaReader = () => {
   return (
     <main className='relative'>
 
-      <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1 sm:px-7'>
+      <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1 sm:px-7 md:px-10'>
         <p className='text-xs sm:text-sm'>{mangaInfo.title?.romaji}</p>
         <p className='text-sm sm:text-base'>Ch. {chapterList[chapterIndex]?.chapterNumber}: {chapterList[chapterIndex]?.title}</p>
       </section>
@@ -108,7 +108,7 @@ const MangaReader = () => {
 
       {!fetchError && !isLoading && (
         
-          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white sm:px-7'>
+          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white sm:px-7 md:px-10'>
             {pages.map(page => (
               <img key={pages.page} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=https://mangadex.org/`} alt={`Page ${pages.page}`} />
             ))}
@@ -116,7 +116,7 @@ const MangaReader = () => {
 
       )}
 
-      <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5 sm:px-7'>
+      <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5 sm:px-7 md:px-10'>
         <button disabled={chapterIndex === 0} onClick={() => setChapterIndex(prev => prev - 1)} className='bg-accent p-3 rounded-full disabled:invisible hover:brightness-90'><ChevronLeftIcon className='h-6 w-6 sm:w-8 sm:h-8' /></button>
         <button disabled={chapterIndex === chapterList.length - 1} onClick={() => setChapterIndex(prev => prev + 1)} className='bg-accent p-3 rounded-full disabled:invisible hover:brightness-90'><ChevronRightIcon className='h-6 w-6 sm:w-8 sm:h-8' /></button>
       </section>

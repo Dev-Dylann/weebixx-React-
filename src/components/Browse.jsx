@@ -74,12 +74,12 @@ const Browse = () => {
         </Helmet>
 
         <section className='relative text-white font-montserrat h-[30vh] bg-black sm:h-[35vh]'>
-            <h2 className='absolute top-5 left-5 font-bold z-[1] sm:text-lg sm:left-7'>Trending Anime</h2>
+            <h2 className='absolute top-5 left-5 font-bold z-[1] sm:text-lg sm:left-7 md:left-10'>Trending Anime</h2>
 
             <Slider trending={trending} />
         </section>
 
-        <section className='px-5 flex flex-col gap-3 sm:px-7'>
+        <section className='px-5 flex flex-col gap-3 sm:px-7 md:px-10'>
             <h2 className='font-montserrat font-bold sm:text-lg'>Recent Anime Releases</h2>
 
             {isLoading && !fetchError && <Loader />}

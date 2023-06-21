@@ -21,7 +21,7 @@ const Recommendations = ({mediaInfo}) => {
     }) 
 
   return (
-    <Splide options={sliderOptions} aria-labelledby='Recommended Anime' className='flex gap-3 px-5 sm:px-7'>
+    <Splide options={sliderOptions} aria-labelledby='Recommended Anime' className='flex gap-3 px-5 sm:px-7 md:px-10'>
         {mediaInfo.recommendations?.map(item => (
             <SplideSlide key={item.id} className='hover:scale-105 transition-all'>
                 <Link to={`/anime/${item.id}`} className='h-full relative flex flex-col gap-2 pb-4'>

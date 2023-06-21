@@ -16,7 +16,7 @@ const Search = () => {
     }, [])
 
   return (
-    <main className='p-5 flex flex-col gap-3 sm:px-7'>
+    <main className='p-5 flex flex-col gap-3 sm:px-7 md:px-10'>
 
       {/* Dynamically change the og meta tags */}
       <Helmet prioritizeSeoTags>

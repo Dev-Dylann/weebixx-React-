@@ -108,7 +108,7 @@ const MangaInfo = () => {
 
         {!isLoading && !fetchError && (
             <>
-                <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7'>
+                <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10'>
                     <img src={mangaInfo.image} alt={mangaInfo.id} className='w-1/3 rounded-lg' />
                     <h2 className='text-2xl font-montserrat sm:font-bold'>{mangaInfo.title?.romaji}</h2>
 
@@ -138,7 +138,7 @@ const MangaInfo = () => {
                     </article>
                 </section>
 
-                <section className='dark:text-white p-5 py-8 flex flex-col gap-3 sm:px-7'>
+                <section className='dark:text-white p-5 py-8 flex flex-col gap-3 sm:px-7 md:px-10'>
                     <div className='flex items-center justify-between'>
                         <h3 className='text-lg font-montserrat sm:font-bold'>Chapters</h3>
                         <button type='button' className='flex items-center gap-2' onClick={() => setChapterSort(prev => prev === 'Newest First' ? 'Oldest First' : 'Newest First')}>
@@ -171,7 +171,7 @@ const MangaInfo = () => {
                 </section>
 
                 <section className='py-8 flex flex-col gap-4 dark:text-white'>
-                    <h3 className='text-lg font-montserrat px-5 sm:font-bold sm:px-7'>More Like This...</h3>
+                    <h3 className='text-lg font-montserrat px-5 sm:font-bold sm:px-7 md:px-10'>More Like This...</h3>
 
                     <Recommendations mediaInfo={mangaInfo} />
                 </section>

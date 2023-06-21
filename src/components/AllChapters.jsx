@@ -84,7 +84,7 @@ const AllChapters = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-      <section className='flex flex-col p-5 gap-4 sm:px-7'>
+      <section className='flex flex-col p-5 gap-4 sm:px-7 md:px-10'>
             <h2 className='font-montserrat sm:text-lg'><Link to={`/manga/${mangaInfo.id}`} className='underline sm:font-bold sm:no-underline sm:hover:underline'>{mangaInfo.title?.romaji}</Link> All Chapters</h2>
 
             <div className='flex items-center self-end gap-4'>
@@ -103,7 +103,7 @@ const AllChapters = () => {
         <section className='flex flex-col'>
           {chapterList ? (
               chapterList.map(chapter => (
-                  <Link to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter.id} className='py-2 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7'>
+                  <Link to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter.id} className='py-2 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10'>
                       <div className='flex flex-col py-2'>
                           <p className='line-clamp-1 text-ellipsis sm:text-lg'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
                           <p className='text-gray-400 text-sm sm:text-base'>{chapter.releasedDate}</p>

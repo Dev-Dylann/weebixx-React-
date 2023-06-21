@@ -77,7 +77,7 @@ const AllEpisodes = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-        <section className='flex flex-col p-5 gap-4 sm:px-7'>
+        <section className='flex flex-col p-5 gap-4 sm:px-7 md:px-10'>
             <h2 className='font-montserrat sm:text-lg'><Link to={`/anime/${animeInfo.id}`} className='underline sm:font-bold sm:no-underline sm:hover:underline'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
 
             <div className='flex items-center self-end gap-4'>
@@ -98,10 +98,10 @@ const AllEpisodes = () => {
         {fetchError && !isLoading && <Error fetchError={fetchError} />}
 
         {!fetchError && !isLoading && (
-            <section className={view === 'List' ? 'flex flex-col' : 'grid grid-cols-3 gap-3 px-5 sm:px-7 sm:gap-5'}>
+            <section className={view === 'List' ? 'flex flex-col' : 'grid grid-cols-3 gap-3 px-5 sm:px-7 sm:gap-5 md:px-10'}>
                 {episodeList?.length ? (
                     episodeList.map(episode => (
-                        <Link to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className={view === 'List' ? 'grid grid-cols-4 gap-x-2 py-4 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7' : 'flex flex-col gap-2 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'}>
+                        <Link to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className={view === 'List' ? 'grid grid-cols-4 gap-x-2 py-4 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10' : 'flex flex-col gap-2 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'}>
                             <img src={episode.image} alt={`Ep. ${episode.number}`} className={view === 'List' ? 'col-span-1 h-full' : ''} />
                             <div className='col-span-3 flex flex-col py-2'>
                                 <p className={view === 'List' ? 'line-clamp-1 text-ellipsis sm:text-lg' : 'line-clamp-2 text-ellipsis text-sm sm:text-base'}>{episode.number}. {episode.title}</p>

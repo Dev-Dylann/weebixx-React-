@@ -30,7 +30,7 @@ const SearchManga = ({ query }) => {
             } catch(err) {
                 if (err.response) {
                     console.log(err.response);
-                    setFetchError(err.response.data.message);
+                    setFetchError(err.response.data.error);
                 } else {
                     console.log(err.message);
                     setFetchError(err.message);
