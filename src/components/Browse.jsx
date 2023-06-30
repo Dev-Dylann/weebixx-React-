@@ -49,7 +49,7 @@ const Browse = () => {
                     params: {
                         page: 1,
                         perPage: 10
-                    }
+                    },
                 });
                 console.log(data.results);
                 setTrending(data.results);

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 import '@splidejs/splide/dist/css/themes/splide-default.min.css'
+import { StarIcon } from '@heroicons/react/24/outline'
 
 const Slider = ({ trending }) => {
     const [options] = useState({
@@ -27,13 +28,13 @@ const Slider = ({ trending }) => {
                         <img src={item.image} alt={item.title.userPreferred} className='hidden w-1/4 rounded-md shadow-lg md:block' />
 
                         <div className='flex flex-col gap-2 font-nunito max-h-full md:mb-4'>
-                            <p className='h-fit line-clamp-2 text-ellipsis text-lg sm:text-xl'>{item.title.userPreferred}</p>
+                            <p className='h-fit line-clamp-2 text-ellipsis sm:text-xl'>{item.title.userPreferred} <span className='text-xs ml-3'><StarIcon className='h-4 w-4 inline fill-[gold] stroke-[gold]' />{item.rating}%</span></p>
 
                             <p className='hidden md:block'>
                                 <span className='line-clamp-4 text-ellipsis'>{item.description}</span>    
                             </p>
 
-                            <p className='hidden flex-wrap gap-2 md:flex'>
+                            <p className='flex-wrap gap-2 flex text-xs md:text-base'>
                                 {item.genres?.map(genre => (
                                     <span className='border text-white px-2 py-1 text-center rounded-full' key={item.genres.indexOf(genre)} style={{borderColor: item.color}}>{genre}</span>
                                 ))}
