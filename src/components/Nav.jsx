@@ -15,7 +15,7 @@ const Nav = ({ navStatus }) => {
   }, [isDark])
 
   return (
-    <section id='nav-container' className='fixed top-0 left-0 w-full z-[5] -translate-x-full transition-all duration-500' style={navStatus ? {transform: "translateX(0)"} : {}}>
+    <section id='nav-container' className='fixed top-0 left-0 w-full z-[5] -translate-x-full transition-all duration-500 lg:hidden' style={navStatus ? {transform: "translateX(0)"} : {}}>
         <article className='bg-white w-[60%] h-full flex flex-col justify-between pt-24 pb-6 dark:bg-background-dark dark:text-white sm:max-w-[350px]'>
             <nav>
                 <ul className='text-lg flex flex-col gap-4 px-6 sm:px-8'>

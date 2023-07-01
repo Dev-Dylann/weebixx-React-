@@ -21,6 +21,13 @@ body,
     background-color: #ccc;
 }
 
+.splide-arrows {
+    position: absolute;
+    left: 0;
+    bottom: 15px;
+    width: 100%;
+}
+
 .loading {
     background: conic-gradient(transparent, #e3b3ff)
 }
