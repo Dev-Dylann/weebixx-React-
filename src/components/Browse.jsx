@@ -41,7 +41,7 @@ const Browse = () => {
                     params: {
                         page: 1,
                         perPage: 60,
-                        provider: 'crunchyroll'
+                        provider: 'gogoanime'
                     }
                 });
                 console.log(data);
