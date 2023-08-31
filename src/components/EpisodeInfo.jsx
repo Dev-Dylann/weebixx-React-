@@ -56,6 +56,8 @@ const EpisodeInfo = () => {
     }, [])
 
     useEffect(() => {
+        setIsLoading(true);
+        setFetchError(null);
 
         const fetchStreamLinks = async () => {
             const currentEp = episodeList.find(episode => {
@@ -80,7 +82,7 @@ const EpisodeInfo = () => {
             }
         }
 
-        if (episodeList) {
+        if (Object.keys(episodeList).length !== 0) {
            fetchStreamLinks();
         }
 
