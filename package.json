@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@consumet/extensions": "^1.5.1",
+    "@ffmpeg.wasm/core-mt": "^0.13.2",
+    "@ffmpeg.wasm/main": "^0.13.1",
     "@heroicons/react": "^2.0.17",
     "@splidejs/react-splide": "^0.7.12",
     "axios": "^1.4.0",
