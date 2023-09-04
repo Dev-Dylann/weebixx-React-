@@ -10,10 +10,6 @@ export const DataProvider = ({ children }) => {
 
   const [isDark, setIsDark] = useState(false);
 
-  const [animeProvider, setAnimeProvider] = useState('gogoanime')
-  const [streamQuality, setStreamQuality] = useState('360p')
-
-
   return (
     <DataContext.Provider
       value={{
@@ -21,8 +17,6 @@ export const DataProvider = ({ children }) => {
         ogDesc, setOgDesc,
         ogImg, setOgImg,
         isDark, setIsDark,
-        animeProvider, setAnimeProvider,
-        streamQuality, setStreamQuality,
       }}
     >
       {children}

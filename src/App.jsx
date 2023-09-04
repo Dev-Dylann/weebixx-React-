@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { DataProvider } from "./context/DataContext";
+import { SettingsProvider } from './context/SettingsContext';
 import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from "./components/Layout";
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <HelmetProvider>
+      <SettingsProvider>
       <DataProvider>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -34,6 +36,7 @@ function App() {
           </Route>
         </Routes>
       </DataProvider>
+      </SettingsProvider>
     </HelmetProvider>
   )
 }

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import DataContext from '../context/DataContext';
+import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
@@ -11,7 +12,8 @@ import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const Browse = () => {
 
-    const {ogTitle, ogDesc, ogImg, animeProvider} = useContext(DataContext);
+    const {ogTitle, ogDesc, ogImg} = useContext(DataContext);
+    const {animeProvider} = useContext(SettingsContext)
     const [recent, setRecent] = useState([]);
     const [trending, setTrending] = useState([]);
     const [fetchError, setFetchError] = useState(null);
@@ -47,7 +49,7 @@ const Browse = () => {
             } catch (err) {
                 if (err.response) {
                     console.log(err.response);
-                    setFetchError(`err.response.data.message`);
+                    setFetchError(err.response.data.message);
                 } else {
                     console.log(err.messsage);
                     setFetchError(err.message);

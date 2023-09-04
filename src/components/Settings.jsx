@@ -1,16 +1,12 @@
-import React, { useContext, useEffect, useState } from 'react'
-import DataContext from '../context/DataContext'
+import React, { useContext, useState } from 'react'
+import SettingsContext from '../context/SettingsContext'
 import SettingsSelect from './SettingsSelect'
 
 const Settings = () => {
     const [animeProviders] = useState(['Gogoanime', 'Crunchyroll', 'Zoro', 'Animepahe']);
     const streamQualities = ['360p', '480p', '720p', '1080p']
 
-    const {animeProvider, setAnimeProvider, streamQuality, setStreamQuality} = useContext(DataContext);
-
-    useEffect(() => {
-        console.log(animeProvider)
-    }, [animeProvider])
+    const {animeProvider, setAnimeProvider, streamQuality, setStreamQuality} = useContext(SettingsContext);
 
   return (
     <main className='dark:text-white'>

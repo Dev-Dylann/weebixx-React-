@@ -1,8 +1,9 @@
 import React, {useState, useEffect, useContext} from 'react'
 import DataContext from '../context/DataContext';
+import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
-import { animeApi } from '../api/api';
+import { animeApi, anilist } from '../api/api';
 import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
@@ -11,13 +12,13 @@ import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon, ArrowDownTrayIcon } from
 
 const EpisodeInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+    const {streamQuality, setStreamQuality} = useContext(SettingsContext)
 
     const {animeId, episodeNumber} = useParams();
     const [animeInfo, setAnimeInfo] = useState({});
     const [episodeList, setEpisodeList] = useState([]);
     const [currentEpisode, setCurrentEpisode] = useState({});
     const [streamLinks, setStreamLinks] = useState([]);
-    const [streamQuality, setStreamQuality] = useState('360p');
     const [isLoading, setIsLoading] = useState(false);
     const [fetchError, setFetchError] = useState(null);
 
@@ -37,8 +38,11 @@ const EpisodeInfo = () => {
 
         const fetchEpisodeDetails = async () => {
             try {
-                const {data} = await animeApi.get(`/info/${animeId}`);
-                console.log(data);
+                // new stuff
+
+                const data = await anilist.fetchAnimeInfo(animeId)
+                console.log(data)
+                
                 setAnimeInfo(data);
                 setEpisodeList(data.episodes);
             } catch(err) {
@@ -65,12 +69,17 @@ const EpisodeInfo = () => {
             })
 
             try {
-                const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
+                /* const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
                 console.log(data);
                 console.log(currentEp);
                 setCurrentEpisode(currentEp);
                 setStreamLinks(data.sources);
-                setStreamQuality(data.sources[0].quality);
+                setStreamQuality(data.sources[0].quality); */
+
+                // new stuff
+
+                const response = await anilist.fetchEpisodeSources(currentEp?.id)
+                console.log(response)
             } catch(err) {
                 if (err.response) {
                     console.log(err.response)

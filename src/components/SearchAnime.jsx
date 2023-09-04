@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import {animeApi} from '../api/api'
 import { anilist } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'

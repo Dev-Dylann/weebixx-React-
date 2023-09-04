@@ -27,17 +27,12 @@ const AnimeInfo = () => {
 
         const fetchAnimeInfo = async () => {
             try {
-                const {data} = await animeApi.get(`info/${animeId}`, {
-                    params:{
-                        provider: 'gogoanime',
-                }});
-                console.log(data);
-                setAnimeInfo(data);
-
                 // new stuff
 
-                const response = await anilist.fetchAnimeInfo(animeId)
-                console.log(response)
+                const data = await anilist.fetchAnimeInfo(animeId)
+
+                console.log(data)
+                setAnimeInfo(data);
             } catch(err) {
                 if (err.response) {
                     console.log(err.response);
