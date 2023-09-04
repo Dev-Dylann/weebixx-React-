@@ -4,13 +4,16 @@ import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import {animeApi} from '../api/api'
+import { META } from '@consumet/extensions';
 import Slider from './Slider';
 import Error from './Error';
 import ToTop from './ToTop';
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const Browse = () => {
-    const {ogTitle, ogDesc, ogImg} = useContext(DataContext);
+    const anilist = new META.Anilist();
+
+    const {ogTitle, ogDesc, ogImg, animeProvider} = useContext(DataContext);
     const [recent, setRecent] = useState([]);
     const [trending, setTrending] = useState([]);
     const [fetchError, setFetchError] = useState(null);
@@ -37,15 +40,12 @@ const Browse = () => {
 
         const fetchRecent = async () => {
             try {
-                const {data} = await animeApi.get('/recent-episodes', {
-                    params: {
-                        page: 1,
-                        perPage: 60,
-                        provider: 'gogoanime'
-                    }
-                });
-                console.log(data);
-                setRecent(data.results);
+                // new stuff
+
+                const data = await anilist.fetchRecentEpisodes(animeProvider, 1, 60)
+
+                console.log(data)
+                setRecent(data.results)
             } catch (err) {
                 if (err.response) {
                     console.log(err.response);
@@ -61,13 +61,11 @@ const Browse = () => {
 
         const fetchTrending = async () => {
             try {
-                const {data} = await animeApi.get('/trending', {
-                    params: {
-                        page: 1,
-                        perPage: 10
-                    },
-                });
-                console.log(data.results);
+                // new stuff
+
+                const data = await anilist.fetchTrendingAnime(1, 10)
+
+                console.log(data);
                 setTrending(data.results);
             } catch(err) {
                 console.log(err.response);

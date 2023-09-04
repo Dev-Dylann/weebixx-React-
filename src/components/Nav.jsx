@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useContext} from 'react'
+import { Link } from 'react-router-dom'
 import DataContext from '../context/DataContext'
-import { MoonIcon, SunIcon, QuestionMarkCircleIcon } from '@heroicons/react/24/outline'
+import { MoonIcon, SunIcon, QuestionMarkCircleIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
-const Nav = ({ navStatus }) => {
+const Nav = ({ navStatus, setNavStatus }) => {
   const { isDark, setIsDark } = useContext(DataContext)
   const toggleRef = useRef()
 
@@ -29,6 +30,11 @@ const Nav = ({ navStatus }) => {
 
                     <MoonIcon className='h-8 w-8' />
                   </div>
+
+                  <Link to='settings' onClick={() => setNavStatus(prev => !prev)} className='py-1 flex items-center gap-2 sm:text-lg'>
+                    <Cog6ToothIcon className='h-6 w-6' />
+                    Settings
+                  </Link>
                   
                     <li className='py-1 flex items-center gap-2 sm:text-lg'><QuestionMarkCircleIcon className='h-6 w-6' />About Weebixx</li>
                 </ul>

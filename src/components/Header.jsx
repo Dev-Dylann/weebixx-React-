@@ -50,7 +50,7 @@ const Header = () => {
           <MagnifyingGlassIcon className='h-7 w-7 dark:stroke-white'/>
         </button>
 
-        <Nav navStatus={navStatus} />
+        <Nav navStatus={navStatus} setNavStatus={setNavStatus} />
 
         {searchIcon && (
           <form className='absolute w-[92%] h-[90%] top-[5%] left-[4%] bg-white flex gap-3 items-center font-nunito z-[11] dark:bg-background-dark' onSubmit={(e) => e.preventDefault()}>
