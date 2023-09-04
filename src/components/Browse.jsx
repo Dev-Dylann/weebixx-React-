@@ -3,15 +3,13 @@ import DataContext from '../context/DataContext';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import {animeApi} from '../api/api'
-import { META } from '@consumet/extensions';
+import { anilist } from '../api/api'
 import Slider from './Slider';
 import Error from './Error';
 import ToTop from './ToTop';
 import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const Browse = () => {
-    const anilist = new META.Anilist();
 
     const {ogTitle, ogDesc, ogImg, animeProvider} = useContext(DataContext);
     const [recent, setRecent] = useState([]);

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useContext } from 'react'
 import DataContext from '../context/DataContext'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { animeApi } from '../api/api'
+import { animeApi, anilist } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
 import Recommendations from './Recommendations'
@@ -33,6 +33,11 @@ const AnimeInfo = () => {
                 }});
                 console.log(data);
                 setAnimeInfo(data);
+
+                // new stuff
+
+                const response = await anilist.fetchAnimeInfo(animeId)
+                console.log(response)
             } catch(err) {
                 if (err.response) {
                     console.log(err.response);
