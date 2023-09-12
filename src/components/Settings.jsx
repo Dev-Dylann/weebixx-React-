@@ -3,7 +3,7 @@ import SettingsContext from '../context/SettingsContext'
 import SettingsSelect from './SettingsSelect'
 
 const Settings = () => {
-    const [animeProviders] = useState(['Gogoanime', 'Crunchyroll', 'Zoro', 'Animepahe']);
+    const [animeProviders] = useState(['Gogoanime', 'Crunchyroll', 'Zoro', 'Enime', '9anime']);
     const streamQualities = ['360p', '480p', '720p', '1080p']
 
     const {animeProvider, setAnimeProvider, streamQuality, setStreamQuality} = useContext(SettingsContext);

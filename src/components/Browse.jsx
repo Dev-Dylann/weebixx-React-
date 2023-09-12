@@ -43,6 +43,7 @@ const Browse = () => {
                 // new stuff
 
                 const data = await anilist.fetchRecentEpisodes(animeProvider, 1, 60)
+                console.log(animeProvider)
 
                 console.log(data)
                 setRecent(data.results)
@@ -74,7 +75,7 @@ const Browse = () => {
 
         fetchTrending();
         fetchRecent();
-    }, [])
+    }, [animeProvider])
 
   return (
     <main className='flex flex-col gap-6 pb-16 dark:text-white lg:gap-3'>

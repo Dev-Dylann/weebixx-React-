@@ -4,6 +4,7 @@ import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi, anilist } from '../api/api';
+import axios from 'axios';
 import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
@@ -27,10 +28,6 @@ const EpisodeInfo = () => {
        setOgDesc(`Stream ${animeInfo.title?.romaji} in different qualities for free.`);
        setOgImg(animeInfo.image);
     }, [animeInfo, currentEpisode])
-
-    useEffect(() => {
-        console.log(streamQuality);
-    }, [streamQuality])
 
     useEffect(() => {
         setIsLoading(true);
@@ -63,31 +60,42 @@ const EpisodeInfo = () => {
         setIsLoading(true);
         setFetchError(null);
 
+        const fallBackFetch = async (currentEp, errMsg) => {
+            
+            try {
+                const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
+                console.log(data)
+                setStreamLinks(data.sources);
+                setCurrentEpisode(currentEp);
+            } catch (err) {
+                console.log(err)
+                if (errMsg.response) {
+                    console.log(errMsg.response)
+                    fetchError === null && setFetchError(errMsg.response.data.message)
+                } else {
+                    console.log(errMsg.message)
+                    fetchError === null && setFetchError(errMsg.message)
+                }
+            } finally {
+                setIsLoading(false)
+            }
+        }
+
         const fetchStreamLinks = async () => {
             const currentEp = episodeList.find(episode => {
                 return episode.number.toString() === episodeNumber;
             })
 
             try {
-                /* const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
-                console.log(data);
+                // new stuff
+                const data = await anilist.fetchEpisodeSources(currentEp?.id, 'vidstreaming')
+                console.log(data) 
                 console.log(currentEp);
                 setCurrentEpisode(currentEp);
                 setStreamLinks(data.sources);
-                setStreamQuality(data.sources[0].quality); */
-
-                // new stuff
-
-                const response = await anilist.fetchEpisodeSources(currentEp?.id)
-                console.log(response)
+                
             } catch(err) {
-                if (err.response) {
-                    console.log(err.response)
-                } else {
-                    console.log(err.message)
-                }
-            } finally {
-                setIsLoading(false);
+                fallBackFetch(currentEp, err)   
             }
         }
 
@@ -96,10 +104,6 @@ const EpisodeInfo = () => {
         }
 
     }, [episodeNumber, episodeList])
-
-    const handleQualityChange = (event) => {
-        setStreamQuality(event.target.value)
-    }
 
     const handleDownload = () => {
         const streamLink = streamLinks.find(link => {
@@ -130,7 +134,7 @@ const EpisodeInfo = () => {
 
                     <VideoPlayer streamLinks={streamLinks} streamQuality={streamQuality} poster={currentEpisode.image} />
 
-                    <select onChange={handleQualityChange} name="quality" id="quality" className='mx-auto px-2 bg-white dark:bg-transparent outline outline-1 outline-gray-400 rounded-md sm:text-lg'>
+                    <select onChange={(e) => setStreamQuality(e.target.value)} value={streamQuality} name="quality" id="quality" className='mx-auto px-2 bg-white dark:bg-transparent outline outline-1 outline-gray-400 rounded-md sm:text-lg'>
                         {streamLinks.map(link => (
                             <option key={streamLinks.indexOf(link)}  value={link.quality}>{link.quality}</option>
                         ))}

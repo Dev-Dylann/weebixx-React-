@@ -27,7 +27,7 @@ const MangaInfo = () => {
 
         const fetchMangaInfo = async () => {
             try {
-                const {data} = await mangaApi.get(`/info/${mangaId}`, { params: { provider: 'mangadex' } });
+                const {data} = await mangaApi.get(`/info/${mangaId}`, { params: { provider: 'mangahere' } });
                 console.log(data);
                 setMangaInfo(data);
             } catch(err) {
