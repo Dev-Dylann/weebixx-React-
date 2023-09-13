@@ -1,16 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import DataContext from '../context/DataContext'
 import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import logo from '../assets/logo.png'
 import darkLogo from '../assets/logo-dark.png'
-import { MagnifyingGlassIcon, Bars3Icon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/react/24/outline'
+import { MagnifyingGlassIcon, Bars3Icon, XMarkIcon, SunIcon, MoonIcon, Cog6ToothIcon } from '@heroicons/react/24/outline'
 
 const Header = () => {
   const {isDark, setIsDark} = useContext(DataContext)
+
   const [searchIcon, setSearchIcon] = useState(false);
   const [navStatus, setNavStatus] = useState(false);
   const [query, setQuery] = useState('');
+
+  const headerRef = useRef()
 
   useEffect(() => {
     if (isDark) {
@@ -20,24 +23,41 @@ const Header = () => {
     }
   }, [isDark])
 
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (scrollY >= 45) {
+        headerRef.current.classList.add('lg:backdrop-blur-md')
+      } else {
+        headerRef.current.classList.remove('lg:backdrop-blur-md')
+      }
+    })
+  }, [])
+
   return (
-    <header className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7 md:px-10 lg:bg-transparent lg:dark:bg-transparent lg:absolute lg:px-16 lg:justify-center lg:py-5'>
+    <header ref={headerRef} className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7 md:px-10 lg:bg-transparent lg:dark:bg-transparent lg:fixed lg:w-full lg:top-0 lg:left-0 lg:px-16 lg:z-10 lg:justify-center lg:py-5 lg:gap-3 lg:transition-all lg:duration-300'>
         <button className='z-10 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333] lg:hidden' onClick={() => setNavStatus(prev => !prev)}>
           {!navStatus ? <Bars3Icon className='h-8 w-8 dark:stroke-white' /> : <XMarkIcon className='h-8 w-8 dark:stroke-white' />}
         </button>
 
         <Link to='/' className='flex justify-center z-10 lg:hidden' ><img src={isDark ? darkLogo : logo} alt="Weebix" className='w-2/5 max-w-[300px] md:max-w-[375px]' /></Link>
 
-        <Link to='/' className='hidden lg:block w-fit z-10' ><img src={darkLogo} alt="Weebix" className='w-1/4' /></Link>
+        <Link to='/' className='hidden lg:block w-fit z-10' ><img src={window.location.pathname === '/' || isDark ? darkLogo : logo} alt="Weebix" className='w-1/4' /></Link>
 
         <form className='hidden lg:flex gap-1 z-10 w-4/5' onSubmit={(e) => e.preventDefault()}>
           <label htmlFor="search" className='absolute -left-[10000px]'>Search anime or manga...</label>
-          <input type="text" id='search' placeholder='Search anime or manga...' autoFocus value={query} onChange={(e) => setQuery(e.target.value)} className='px-3 py-1 rounded-full grow text-sm' />
+          <input type="text" id='search' placeholder='Search anime or manga...' autoFocus value={query} onChange={(e) => setQuery(e.target.value)} className='px-3 py-1 rounded-full grow text-sm lg:outline lg:outline-1 lg:outline-black lg:focus:outline-[3px]' />
           
           <Link to={`search/${query}`}>
               <button type='submit' className='bg-accent px-3 py-1 rounded-full hover:brightness-90 text-sm'>Search</button>
           </Link>
         </form>
+
+        <Link to={'settings'} className='hidden lg:block z-10' title="Settings" style={
+          window.location.pathname === '/' || isDark ? 
+            {color: 'white'} : {color: '#1a1a1a'}
+        }>
+          <Cog6ToothIcon className='h-8 w-8' />
+        </Link>
 
           <button onClick={() => setIsDark(prev => !prev)} className='h-7 w-24 rounded-full p-1 bg-accent z-10 hidden lg:flex dark:justify-end transition-all duration-300'>
             <div className='h-full w-6 rounded-full bg-white dark:bg-background-dark dark:text-white grid place-content-center'>

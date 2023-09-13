@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import DataContext from '../context/DataContext';
 import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
+import ogImage from '../assets/og-image.png'
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
 import { anilist } from '../api/api'
@@ -12,8 +13,9 @@ import { Splide, SplideSlide } from '@splidejs/react-splide'
 
 const Browse = () => {
 
-    const {ogTitle, ogDesc, ogImg} = useContext(DataContext);
+    const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
     const {animeProvider} = useContext(SettingsContext)
+
     const [recent, setRecent] = useState([]);
     const [trending, setTrending] = useState([]);
     const [fetchError, setFetchError] = useState(null);
@@ -33,6 +35,12 @@ const Browse = () => {
             page: 'splide__pagination__page slider-page'
         }
     })
+
+    useEffect(() => {
+        setOgImg(ogImage);
+        setOgTitle('Weebixx');
+        setOgDesc('Discover your favourite animanga titles, all conveniently available for your enjoyment on Weebixx.')
+    }, [])
 
     useEffect(() => {
         setFetchError(null);

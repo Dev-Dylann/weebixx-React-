@@ -51,12 +51,12 @@ const SearchAnime = ({ query }) => {
         {!isLoading && !fetchError && !searchResults.length && <Error fetchError={`No results found for ${query}`} />}
 
         {!isLoading && !fetchError && searchResults.length && (
-            <section className='grid grid-cols-3 gap-3 pb-20 relative dark:text-white sm:grid-cols-4 sm:gap-5'>
+            <section className='grid grid-cols-3 gap-3 pb-20 relative dark:text-white sm:grid-cols-4 sm:gap-5 lg:grid-cols-6 xl:grid-cols-7'>
                 {searchResults.map(result => (
                     <Link to={`/anime/${result.id}`} key={result.id} className='relative h-full hover:scale-105 transition-all'>
                         <img src={result.image} alt='' className='rounded-lg shadow-lg' />
                         <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a] sm:text-sm'>{result.releaseDate}</p>
-                        <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base'>{result.title.userPreferred}</p>
+                        <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base lg:text-lg'>{result.title.userPreferred}</p>
                     </Link>
                 ))}
 
