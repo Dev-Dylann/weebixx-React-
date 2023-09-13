@@ -45,7 +45,9 @@ const MangaInfo = () => {
             }
         }
 
-        fetchMangaInfo();
+        if (mangaProvider !== '') {
+            fetchMangaInfo();
+        }
     }, [mangaId, mangaProvider])
 
     useEffect(() => {
