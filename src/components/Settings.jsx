@@ -5,8 +5,9 @@ import SettingsSelect from './SettingsSelect'
 const Settings = () => {
     const [animeProviders] = useState(['Gogoanime', 'Crunchyroll', 'Zoro', 'Enime', '9anime']);
     const streamQualities = ['360p', '480p', '720p', '1080p']
+    const mangaProviders = ['MangaKakalot', 'MangaDex', 'MangaHere']
 
-    const {animeProvider, setAnimeProvider, streamQuality, setStreamQuality} = useContext(SettingsContext);
+    const {animeProvider, setAnimeProvider, streamQuality, setStreamQuality, mangaProvider, setMangaProvider} = useContext(SettingsContext);
 
   return (
     <main className='dark:text-white'>
@@ -27,7 +28,7 @@ const Settings = () => {
                 <h3 className='text-base font-montserrat'>Manga</h3>
 
                 <form action="" className='flex flex-col'>
-                    
+                    <SettingsSelect label='Provider' id='manga-provider' state={mangaProvider} setState={setMangaProvider} options={mangaProviders} />
                 </form>
             </article>
         </section>

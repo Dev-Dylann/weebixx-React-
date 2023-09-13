@@ -6,19 +6,21 @@ export const SettingsProvider = ({children}) => {
     
   const [animeProvider, setAnimeProvider] = useState('')
   const [streamQuality, setStreamQuality] = useState('')
+  const [mangaProvider, setMangaProvider] = useState('')
 
   useEffect(() => {
     const settings = fetchSettings()
 
     setAnimeProvider(settings.animeProvider)
     setStreamQuality(settings.streamQuality)
+    setMangaProvider(settings.mangaProvider)
   }, [])
 
   useEffect(() => {
-    if (animeProvider != '' && streamQuality != '') {
+    if (animeProvider != '' && streamQuality != '' && mangaProvider != '') {
         updateSettings()
     }
-  }, [animeProvider, streamQuality])
+  }, [animeProvider, streamQuality, mangaProvider])
 
   const fetchSettings = () => {
     const stringSettings = localStorage.getItem('WeebixxSettings')
@@ -28,13 +30,14 @@ export const SettingsProvider = ({children}) => {
         return parsedSettings
     }
 
-    return {animeProvider: 'gogoanime', streamQuality: '360p'}
+    return {animeProvider: 'gogoanime', streamQuality: '360p', mangaProvider: 'mangakakalot'}
   }
 
   const updateSettings = () => {
     const newSettings = {
         animeProvider,
         streamQuality,
+        mangaProvider,
     }
 
     const stringSettings = JSON.stringify(newSettings)
@@ -46,6 +49,7 @@ export const SettingsProvider = ({children}) => {
             value={{
                 animeProvider, setAnimeProvider,
                 streamQuality, setStreamQuality,
+                mangaProvider, setMangaProvider,
             }} 
         >
             {children}

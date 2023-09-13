@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import DataContext from '../context/DataContext'
+import SettingsContext from '../context/SettingsContext'
 import { Helmet } from 'react-helmet-async'
 import { useParams, Link } from 'react-router-dom'
 import { mangaApi } from '../api/api'
@@ -10,6 +11,7 @@ import { ChevronDoubleDownIcon, ArrowsUpDownIcon, ChevronRightIcon } from '@hero
 
 const MangaInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+    const {mangaProvider} = useContext(SettingsContext)
 
     const {mangaId} = useParams();
     const [mangaInfo, setMangaInfo] = useState([]);
@@ -27,7 +29,7 @@ const MangaInfo = () => {
 
         const fetchMangaInfo = async () => {
             try {
-                const {data} = await mangaApi.get(`/info/${mangaId}`, { params: { provider: 'mangahere' } });
+                const {data} = await mangaApi.get(`/info/${mangaId}`, { params: { provider: mangaProvider } });
                 console.log(data);
                 setMangaInfo(data);
             } catch(err) {
@@ -44,7 +46,7 @@ const MangaInfo = () => {
         }
 
         fetchMangaInfo();
-    }, [mangaId])
+    }, [mangaId, mangaProvider])
 
     useEffect(() => {
         setOgTitle(`Weebixx - ${mangaInfo.title?.romaji}`);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import DataContext from '../context/DataContext'
+import SettingsContext from '../context/SettingsContext'
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 import { mangaApi } from '../api/api'
@@ -9,6 +10,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 
 const MangaReader = () => {
   const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+  const {mangaProvider} = useContext(SettingsContext)
 
   const {mangaId, chapterId} = useParams();
   const [mangaInfo, setMangaInfo] = useState({});
@@ -26,7 +28,7 @@ const MangaReader = () => {
       try {
         const {data} = await mangaApi.get(`info/${mangaId}`, {
           params: {
-            provider: 'mangadex',
+            provider: mangaProvider,
           }
         });
         console.log(data);
@@ -43,8 +45,10 @@ const MangaReader = () => {
       }
     }
 
-    fetchMangaInfo();
-  }, [])
+    if (mangaProvider !== '') {
+      fetchMangaInfo();
+    }
+  }, [mangaProvider])
 
   useEffect(() => {
     setOgTitle(`Weebixx - ${mangaInfo.title?.romaji} Chapter ${chapterList[chapterIndex]?.chapterNumber}`);
@@ -73,7 +77,7 @@ const MangaReader = () => {
         const {data} = await mangaApi.get(`/read`, {
           params: {
             chapterId: currentChapter?.id,
-            provider: 'mangadex'
+            provider: mangaProvider
           }
         })
         console.log(data);
@@ -97,6 +101,14 @@ const MangaReader = () => {
   return (
     <main className='relative'>
 
+      {/* Dynamically change the og meta tags */}
+        <Helmet prioritizeSeoTags>
+            <title>{ogTitle}</title>
+            <meta property='og:title' content={ogTitle} data-rh='true' />
+            <meta property='og:description' content={ogDesc} data-rh='true' />
+            <meta property='og:image' content={ogImg} data-rh='true' />
+        </Helmet>
+
       <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1 sm:px-7 md:px-10'>
         <p className='text-xs sm:text-sm'>{mangaInfo.title?.romaji}</p>
         <p className='text-sm sm:text-base'>Ch. {chapterList[chapterIndex]?.chapterNumber}: {chapterList[chapterIndex]?.title}</p>
@@ -110,7 +122,7 @@ const MangaReader = () => {
         
           <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white sm:px-7 md:px-10'>
             {pages.map(page => (
-              <img key={pages.page} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=https://mangadex.org/`} alt={`Page ${pages.page}`} />
+              <img key={`Page${page.page}`} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=${page.headerForImage.Referer}`} alt={`Page ${pages.page}`} />
             ))}
           </section>
 
