@@ -14,7 +14,7 @@ const SettingsSelect = ({label, id, state, setState, options}) => {
             onChange={(e) => setState(e.target.value)} 
         >
             {options.map((option, index) => (
-                <option key={`${id}${index}`} value={option.toLowerCase()}>{option}</option>
+                <option key={`${id}${index}`} className='text-[#1a1a1a]' value={option.toLowerCase()}>{option}</option>
             ))}
     </select>
     </label>

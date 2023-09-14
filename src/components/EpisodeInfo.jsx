@@ -116,7 +116,7 @@ const EpisodeInfo = () => {
     };
 
   return (
-        <main className='flex flex-col gap-4 dark:text-white pb-8'>
+        <main className='flex flex-col gap-4 dark:text-white pb-8 lg:pt-20 lg:px-16 lg:grid lg:grid-cols-3 lg:gap-x-8 xl:px-28'>
 
             {/* Dynamically change the og meta tags */}
             <Helmet prioritizeSeoTags>
@@ -126,8 +126,8 @@ const EpisodeInfo = () => {
                 <meta property='og:image' content={ogImg} data-rh='true' />
             </Helmet>
 
-                <section className='px-5 py-4 flex flex-col gap-4 sm:px-7 md:px-10'>
-                    <div className='flex flex-col text-center font-montserrat items-center gap-1'>
+                <section className='px-5 py-4 flex flex-col gap-4 sm:px-7 md:px-10 lg:px-0 lg:col-span-2'>
+                    <div className='flex flex-col text-center font-montserrat items-center gap-1 lg:text-left lg:items-start lg:flex-row lg:gap-2'>
                         <Link to={`/anime/${animeInfo.id}`} className='underline sm:text-lg sm:font-bold sm:no-underline sm:hover:underline'>{animeInfo.title?.romaji}</Link>
                         <p className='sm:text-lg'>Episode {currentEpisode.number}</p>
                     </div>
@@ -153,12 +153,12 @@ const EpisodeInfo = () => {
 
             {!fetchError && !isLoading && (
                 <>
-                <section className='px-5 sm:px-7 md:px-10'>
+                <section className='px-5 sm:px-7 md:px-10 lg:px-0 lg:pt-10'>
                     <h2 className='text-lg font-montserrat sm:font-bold sm:text-xl'>{currentEpisode.title}</h2>
 
                     <p className='text-gray-400 text-sm sm:text-base'>Released: {currentEpisode.airDate?.slice(0, currentEpisode.airDate.indexOf('T'))}</p>
 
-                    <p className='mt-2 sm:text-lg'>{currentEpisode.description}</p>
+                    <p className='mt-2 sm:text-lg lg:text-base'>{currentEpisode.description}</p>
 
                     <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent p-2 rounded-lg mt-4 flex gap-2 hover:brightness-90'>
                         <ArrowDownTrayIcon className='h-6 w-6' />
@@ -167,8 +167,8 @@ const EpisodeInfo = () => {
 
                 </section>
 
-                <Link to={`/episodelist/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base sm:px-7 sm:no-underline sm:hover:underline md:px-10'>{animeInfo.title?.romaji} Episode List</Link>
-                <Link to={`/anime/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base sm:px-7 sm:no-underline sm:hover:underline md:px-10'>Back to anime details</Link>
+                <Link to={`/episodelist/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base sm:px-7 sm:no-underline sm:hover:underline md:px-10 lg:px-0'>{animeInfo.title?.romaji} Episode List</Link>
+                <Link to={`/anime/${animeInfo.id}`} className='text-gray-400 underline px-5 text-sm w-fit sm:text-base sm:px-7 sm:no-underline sm:hover:underline md:px-10 lg:px-0'>Back to anime details</Link>
 
                 </>
             )}
