@@ -25,7 +25,7 @@ const Header = () => {
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
-      if (scrollY >= 45) {
+      if (scrollY >= 30) {
         headerRef.current.classList.add('lg:backdrop-blur-md')
       } else {
         headerRef.current.classList.remove('lg:backdrop-blur-md')

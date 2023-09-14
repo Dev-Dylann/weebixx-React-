@@ -12,6 +12,24 @@ const Recommendations = ({mediaInfo}) => {
             640: {
                 perPage: 4,
                 perMove: 4,
+                gap: '20px',
+            }, 
+            768: {
+                perPage: 5,
+            }, 
+            1024: {
+                perPage: 6,
+                perMove: 2,
+                arrows: true,
+                pagination: true,
+                classes: {
+                    arrows: 'splide__arrows splide-arrows',
+                    arrow: 'splide__arrow slider-arrow',
+                    page: 'splide__pagination__page slider-page'
+                }
+            }, 
+            1280: {
+                perPage: 7,
             }
         },
         gap: '12px',
@@ -21,7 +39,7 @@ const Recommendations = ({mediaInfo}) => {
     }) 
 
   return (
-    <Splide options={sliderOptions} aria-labelledby='Recommended Anime' className='flex gap-3 px-5 sm:px-7 md:px-10'>
+    <Splide options={sliderOptions} aria-labelledby='Recommended Anime' className='flex gap-3'>
         {mediaInfo.recommendations?.map(item => (
             <SplideSlide key={item.id} className='hover:scale-105 transition-all'>
                 <Link to={`/anime/${item.id}`} className='h-full relative flex flex-col gap-2 pb-4'>
