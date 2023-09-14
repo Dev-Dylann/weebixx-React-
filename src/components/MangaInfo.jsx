@@ -90,7 +90,7 @@ const MangaInfo = () => {
     }, [mangaInfo, chapterSort])
 
   return (
-    <main className='relative pt-36 sm:pt-28 lg:flex lg:flex-col lg:gap-16 xl:gap-44'>
+    <main className='relative pt-36 sm:pt-28 lg:flex lg:flex-col lg:gap-16'>
 
         {/* Dynamically change the og meta tags */}
         <Helmet prioritizeSeoTags>
@@ -114,7 +114,7 @@ const MangaInfo = () => {
 
         {!isLoading && !fetchError && (
             <>
-                <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10 lg:px-16 lg:items-end lg:text-left lg:max-h-screen lg:relative xl:px-28'>
+                <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10 lg:px-16 lg:items-end lg:text-left lg:max-h-screen lg:relative xl:px-28 xl:pt-32'>
                     <img src={mangaInfo.image} alt={mangaInfo.id} className='w-1/3 rounded-lg sm:max-w-[200px] lg:absolute lg:top-5 lg:left-16 lg:max-w-[350px] lg:w-[30%] xl:left-28' />
                     <h2 className='text-2xl font-montserrat sm:font-bold lg:w-[60%] lg:flex lg:items-center' title={mangaInfo.title?.english}>{mangaInfo.title?.romaji} <span className='hidden lg:block text-xs ml-3 font-normal'><StarIcon className='h-4 w-4 inline fill-[gold] stroke-[gold]' />{mangaInfo.rating}%</span></h2>
 
@@ -156,7 +156,7 @@ const MangaInfo = () => {
                     <article className='flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-4'>
                         {chapterList.length ? (
                             chapterList.map(chapter => (
-                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
+                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
                                     <div className='flex flex-col py-2'>
                                         <p className='line-clamp-1 text-ellipsis sm:text-lg'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
                                         <p className='text-gray-400 text-sm sm:text-base'>{chapter.releasedDate}</p>

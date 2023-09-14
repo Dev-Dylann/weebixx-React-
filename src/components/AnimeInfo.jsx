@@ -154,7 +154,7 @@ const AnimeInfo = () => {
             <article className='flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-4'>
                 {episodeList.length ? (
                     episodeList.map(episode => (
-                        <Link  to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className='grid grid-cols-4 gap-x-2 py-4 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
+                        <Link  to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className='grid grid-cols-4 gap-x-2 py-4 px-5 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
                             <img src={episode.image} alt={`Ep. ${episode.number}`} className='col-span-1 my-auto' />
                             <div className='col-span-3 flex flex-col py-2'>
                                 <p className='line-clamp-1 text-ellipsis sm:text-lg'>{episode.number}. {episode.title}</p>

@@ -67,7 +67,7 @@ const AllEpisodes = () => {
     }, [animeInfo, episodeSort])
 
   return (
-    <main className='dark:text-white'>
+    <main className='dark:text-white pb-10 lg:pt-20'>
 
         {/* Dynamically change the og meta tags */}
         <Helmet prioritizeSeoTags>
@@ -77,7 +77,7 @@ const AllEpisodes = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-        <section className='flex flex-col p-5 gap-4 sm:px-7 md:px-10'>
+        <section className='flex flex-col p-5 gap-4 sm:px-7 md:px-10 lg:px-16 lg:flex-row lg:justify-between xl:px-28'>
             <h2 className='font-montserrat sm:text-lg'><Link to={`/anime/${animeInfo.id}`} className='underline sm:font-bold sm:no-underline sm:hover:underline'>{animeInfo.title?.romaji}</Link> All Episodes</h2>
 
             <div className='flex items-center self-end gap-4'>
@@ -98,14 +98,14 @@ const AllEpisodes = () => {
         {fetchError && !isLoading && <Error fetchError={fetchError} />}
 
         {!fetchError && !isLoading && (
-            <section className={view === 'List' ? 'flex flex-col' : 'grid grid-cols-3 gap-3 px-5 sm:px-7 sm:gap-5 md:px-10'}>
+            <section className={view === 'List' ? 'flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-4 lg:px-16 xl:px-28' : 'grid grid-cols-3 gap-3 px-5 sm:px-7 sm:gap-5 md:px-10 lg:px-16 lg:grid-cols-4 xl:px-28'}>
                 {episodeList?.length ? (
                     episodeList.map(episode => (
-                        <Link to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className={view === 'List' ? 'grid grid-cols-4 gap-x-2 py-4 px-5 border-b dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10' : 'flex flex-col gap-2 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'}>
-                            <img src={episode.image} alt={`Ep. ${episode.number}`} className={view === 'List' ? 'col-span-1 h-full' : ''} />
+                        <Link to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className={view === 'List' ? 'grid grid-cols-4 gap-x-2 py-4 px-5 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4' : 'flex flex-col gap-2 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all'}>
+                            <img src={episode.image} alt={`Ep. ${episode.number}`} className={view === 'List' ? 'col-span-1 my-auto' : ''} />
                             <div className='col-span-3 flex flex-col py-2'>
-                                <p className={view === 'List' ? 'line-clamp-1 text-ellipsis sm:text-lg' : 'line-clamp-2 text-ellipsis text-sm sm:text-base'}>{episode.number}. {episode.title}</p>
-                                <p className={view === 'List' ? 'text-gray-400 text-sm sm:text-base' : 'text-gray-400 text-xs sm:text-sm'}>{episode.airDate?.slice(0, episode.airDate.indexOf('T'))}</p>
+                                <p className={view === 'List' ? 'line-clamp-1 text-ellipsis sm:text-lg' : 'line-clamp-2 text-ellipsis text-sm sm:text-base lg:px-2 lg:font-medium'}>{episode.number}. {episode.title}</p>
+                                <p className={view === 'List' ? 'text-gray-400 text-sm sm:text-base' : 'text-gray-400 text-xs sm:text-sm lg:px-2'}>{episode.airDate?.slice(0, episode.airDate.indexOf('T'))}</p>
                             </div>
                         </Link>
                     ))
