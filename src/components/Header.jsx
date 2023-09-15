@@ -34,7 +34,8 @@ const Header = () => {
   }, [])
 
   return (
-    <header ref={headerRef} className='relative px-5 py-3 font-montserrat flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7 md:px-10 lg:bg-transparent lg:dark:bg-transparent lg:fixed lg:w-full lg:top-0 lg:left-0 lg:px-16 lg:z-10 lg:justify-center lg:py-5 lg:gap-3 lg:transition-all lg:duration-300'>
+    <header ref={headerRef} className='relative font-montserrat lg:fixed lg:top-0 lg:left-0 lg:w-full lg:z-10 lg:transition-all lg:duration-300'>
+      <section className='w-full max-w-[1400px] px-5 py-3 flex justify-between items-center gap-5 bg-white dark:bg-background-dark sm:px-7 md:px-10 lg:bg-transparent lg:dark:bg-transparent lg:px-16 lg:mx-auto lg:justify-center lg:py-5 lg:gap-3'>
         <button className='z-10 rounded-md hover:bg-[whitesmoke] dark:hover:bg-[#333] lg:hidden' onClick={() => setNavStatus(prev => !prev)}>
           {!navStatus ? <Bars3Icon className='h-8 w-8 dark:stroke-white' /> : <XMarkIcon className='h-8 w-8 dark:stroke-white' />}
         </button>
@@ -86,6 +87,7 @@ const Header = () => {
             </button>
           </form>
         )}
+      </section>  
     </header>
   )
 }

@@ -15,7 +15,7 @@ const Layout = () => {
   }, [])
 
   return (
-    <div>
+    <div className=''>
         <Header />
         <Outlet />
     </div>
