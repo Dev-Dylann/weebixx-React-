@@ -99,7 +99,7 @@ const MangaReader = () => {
   }, [chapterIndex])
   
   return (
-    <main className='relative lg:pt-20'>
+    <main className='relative'>
 
       {/* Dynamically change the og meta tags */}
         <Helmet prioritizeSeoTags>
@@ -109,7 +109,7 @@ const MangaReader = () => {
             <meta property='og:image' content={ogImg} data-rh='true' />
         </Helmet>
 
-      <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1 sm:px-7 md:px-10 lg:px-16 lg:top-[72px] xl:px-28'>
+      <section className='sticky top-0 left-0 w-full px-5 py-2 bg-overlay-dark font-montserrat text-white flex flex-col gap-1 sm:px-7 md:px-10 lg:px-16 lg:top-0 xl:px-28'>
         <p className='text-xs sm:text-sm lg:text-base'>{mangaInfo.title?.romaji}</p>
         <p className='text-sm sm:text-base lg:text-lg'>Ch. {chapterList[chapterIndex]?.chapterNumber}: {chapterList[chapterIndex]?.title}</p>
       </section>
@@ -120,19 +120,15 @@ const MangaReader = () => {
 
       {!fetchError && !isLoading && (
         <>
-          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white sm:px-7 md:px-10 lg:hidden'>
+          <section className='flex flex-col px-5 py-2 gap-1 items-center dark:text-white sm:px-7 md:px-10 lg:grid lg:grid-cols-2 lg:gap-x-4 lg:gap-y-8 lg:px-16 lg:py-6 lg:max-w-[1000px] lg:mx-auto xl:px-28'>
             {pages.map(page => (
-              <img key={`Page${page.page}`} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=${page.headerForImage.Referer}`} alt={`Page ${pages.page}`} />
+              <img className='lg:self-start' key={`Page${page.page}`} src={`https://api-consumet-55ajst2bq-isaactan98.vercel.app/utils/image-proxy?url=${encodeURIComponent(page.img)}&referer=${page.headerForImage.Referer}`} alt={`Page ${pages.page}`} />
             ))}
-          </section>
-
-          <section className='hidden lg:block'>
-
           </section>
         </>
       )}
 
-      <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5 sm:px-7 md:px-10'>
+      <section className='dark:text-[#1a1a1a] fixed w-full bottom-4 left-0 flex justify-between px-5 sm:px-7 md:px-10 lg:px-16 xl:px-28'>
         <button disabled={chapterIndex === 0} onClick={() => setChapterIndex(prev => prev - 1)} className='bg-accent p-3 rounded-full disabled:invisible hover:brightness-90'><ChevronLeftIcon className='h-6 w-6 sm:w-8 sm:h-8' /></button>
         <button disabled={chapterIndex === chapterList.length - 1} onClick={() => setChapterIndex(prev => prev + 1)} className='bg-accent p-3 rounded-full disabled:invisible hover:brightness-90'><ChevronRightIcon className='h-6 w-6 sm:w-8 sm:h-8' /></button>
       </section>

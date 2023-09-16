@@ -9,7 +9,7 @@ const animeApi = axios.create({
   baseURL: "https://api.consumet.org/meta/anilist/",
 });
 
-const anilist = new META.Anilist();
+const anilist = new META.Anilist({ url: "https://corsproxy.io/?" });
 const mangakakalot = new MANGA.MangaKakalot();
 
 export { mangaApi, animeApi, anilist, mangakakalot };
