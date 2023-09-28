@@ -2,7 +2,7 @@ import axios from "axios";
 import { META, MANGA } from "@consumet/extensions";
 
 const mangaApi = axios.create({
-  baseURL: "https://api.consumet.org/meta/anilist-manga/",
+  baseURL: "https://consumet-weebixx.up.railway.app/meta/anilist-manga/",
 });
 
 const animeApi = axios.create({
