@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import DataContext from '../context/DataContext';
+import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi } from '../api/api'
@@ -10,6 +11,7 @@ import ToTop from './ToTop';
 
 const AllEpisodes = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+    const {animeProvider} = useContext(SettingsContext)
 
     const {animeId} = useParams();
     const [animeInfo, setAnimeInfo] = useState([]);
@@ -33,7 +35,7 @@ const AllEpisodes = () => {
             try {
                 const {data} = await animeApi.get(`info/${animeId}`, {
                     params:{
-                        provider: 'gogoanime',
+                        provider: 'animeProvider',
                 }});
                 console.log(data);
                 setAnimeInfo(data);

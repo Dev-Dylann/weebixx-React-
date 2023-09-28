@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import ogImage from '../assets/og-image.png'
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { anilist } from '../api/api'
+import { anilist, animeApi } from '../api/api'
 import Slider from './Slider';
 import Error from './Error';
 import ToTop from './ToTop';
@@ -50,11 +50,20 @@ const Browse = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchRecentEpisodes(animeProvider, 1, 60)
+                const { data } = await animeApi.get('recent-episodes', {
+                    params: {
+                        page: 1,
+                        perPage: 60,
+                        provider: animeProvider
+                    }
+                })
+                console.log(data)
+
+                /* const data = await anilist.fetchRecentEpisodes(animeProvider, 1, 60)
                 console.log(animeProvider)
 
                 console.log(data)
-                setRecent(data.results)
+                setRecent(data.results) */
             } catch (err) {
                 if (err.response) {
                     console.log(err.response);
@@ -72,10 +81,19 @@ const Browse = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchTrendingAnime(1, 10)
+                const { data } = await animeApi.get('trending', {
+                    params: {
+                        page: 1,
+                        perPage: 10,
+                    }
+                })
+                console.log(data)
+                setTrending(data.results)
+
+                /* const data = await anilist.fetchTrendingAnime(1, 10)
 
                 console.log(data);
-                setTrending(data.results);
+                setTrending(data.results); */
             } catch(err) {
                 console.log(err.response);
             }

@@ -4,7 +4,6 @@ import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi, anilist } from '../api/api';
-import axios from 'axios';
 import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
@@ -13,7 +12,7 @@ import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon, ArrowDownTrayIcon } from
 
 const EpisodeInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
-    const {streamQuality, setStreamQuality} = useContext(SettingsContext)
+    const {streamQuality, setStreamQuality, animeProvider} = useContext(SettingsContext)
 
     const {animeId, episodeNumber} = useParams();
     const [animeInfo, setAnimeInfo] = useState({});
@@ -37,11 +36,20 @@ const EpisodeInfo = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchAnimeInfo(animeId)
+                const { data } = await animeApi.get(`info/${animeId}`, {
+                    params: {
+                        provider: animeProvider,
+                    }
+                })
+                console.log(data)
+                setAnimeInfo(data);
+                setEpisodeList(data.episodes);
+
+                /* const data = await anilist.fetchAnimeInfo(animeId)
                 console.log(data)
                 
                 setAnimeInfo(data);
-                setEpisodeList(data.episodes);
+                setEpisodeList(data.episodes); */
             } catch(err) {
                 if (err.response) {
                     console.log(err.response)
@@ -60,27 +68,6 @@ const EpisodeInfo = () => {
         setIsLoading(true);
         setFetchError(null);
 
-        const fallBackFetch = async (currentEp, errMsg) => {
-            
-            try {
-                const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
-                console.log(data)
-                setStreamLinks(data.sources);
-                setCurrentEpisode(currentEp);
-            } catch (err) {
-                console.log(err)
-                if (errMsg.response) {
-                    console.log(errMsg.response)
-                    fetchError === null && setFetchError(errMsg.response.data.message)
-                } else {
-                    console.log(errMsg.message)
-                    fetchError === null && setFetchError(errMsg.message)
-                }
-            } finally {
-                setIsLoading(false)
-            }
-        }
-
         const fetchStreamLinks = async () => {
             const currentEp = episodeList.find(episode => {
                 return episode.number.toString() === episodeNumber;
@@ -88,14 +75,29 @@ const EpisodeInfo = () => {
 
             try {
                 // new stuff
-                const data = await anilist.fetchEpisodeSources(currentEp?.id, 'vidstreaming')
-                console.log(data) 
+
+                const {data} = await animeApi.get(`watch/${currentEp?.id}`)
+                console.log(data)
                 console.log(currentEp);
                 setCurrentEpisode(currentEp);
                 setStreamLinks(data.sources);
+
+                /* const data = await anilist.fetchEpisodeSources(currentEp?.id, 'vidstreaming')
+                console.log(data) 
+                console.log(currentEp);
+                setCurrentEpisode(currentEp);
+                setStreamLinks(data.sources); */
                 
             } catch(err) {
-                fallBackFetch(currentEp, err)   
+                if (errMsg.response) {
+                    console.log(errMsg.response)
+                    setFetchError(errMsg.response.data.message)
+                } else {
+                    console.log(errMsg.message)
+                    setFetchError(errMsg.message)
+                }  
+            } finally {
+                setIsLoading(false)
             }
         }
 

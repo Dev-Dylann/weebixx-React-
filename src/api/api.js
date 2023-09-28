@@ -6,7 +6,7 @@ const mangaApi = axios.create({
 });
 
 const animeApi = axios.create({
-  baseURL: "https://api.consumet.org/meta/anilist/",
+  baseURL: "https://consumet-weebixx.up.railway.app/meta/anilist/",
 });
 
 const anilist = new META.Anilist({ url: "https://corsproxy.io/?" });
