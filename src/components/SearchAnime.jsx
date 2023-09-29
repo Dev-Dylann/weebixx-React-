@@ -21,7 +21,7 @@ const SearchAnime = ({ query }) => {
             try {
                 // new stuff
 
-                const { data } = await animeApi.get('search', {
+                const { data } = await animeApi.get(query, {
                     params: {
                     page: page
                     }
