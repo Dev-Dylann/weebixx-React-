@@ -50,7 +50,7 @@ const Browse = () => {
             try {
                 // new stuff
 
-                const { data } = await animeApi.get('recent-episodes', {
+                const { data } = await animeApi.get('recent', {
                     params: {
                         page: 1,
                         perPage: 60,
