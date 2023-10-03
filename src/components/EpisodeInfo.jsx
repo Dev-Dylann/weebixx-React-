@@ -4,6 +4,7 @@ import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi, anilist } from '../api/api';
+import mapToAnilist from '../modules/mapping';
 import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
@@ -36,20 +37,16 @@ const EpisodeInfo = () => {
             try {
                 // new stuff
 
-                const { data } = await animeApi.get(`info/${animeId}`, {
+                const aniId = await mapToAnilist(animeId, animeProvider)
+
+                const {data} = await animeApi.get(`info/${aniId}`, {
                     params: {
-                        provider: animeProvider,
+                        provider: animeProvider
                     }
                 })
-                console.log(data)
-                setAnimeInfo(data);
-                setEpisodeList(data.episodes);
+                setAnimeInfo(data)
+                setEpisodeList(data.episodes)
 
-                /* const data = await anilist.fetchAnimeInfo(animeId)
-                console.log(data)
-                
-                setAnimeInfo(data);
-                setEpisodeList(data.episodes); */
             } catch(err) {
                 if (err.response) {
                     console.log(err.response)
@@ -158,9 +155,9 @@ const EpisodeInfo = () => {
                 <section className='px-5 sm:px-7 md:px-10 lg:px-0 lg:pt-10'>
                     <h2 className='text-lg font-montserrat sm:font-bold sm:text-xl'>{currentEpisode.title}</h2>
 
-                    <p className='text-gray-400 text-sm sm:text-base'>Released: {currentEpisode.airDate?.slice(0, currentEpisode.airDate.indexOf('T'))}</p>
+                    <p className='text-gray-400 text-sm sm:text-base'>Released: {currentEpisode.createdAt?.slice(0, currentEpisode.createdAt.indexOf('T'))}</p>
 
-                    <p className='mt-2 sm:text-lg lg:text-base'>{currentEpisode.description}</p>
+                    <p className='mt-2 sm:text-lg lg:text-base'>{currentEpisode.description ?? 'No description available.'}</p>
 
                     <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent p-2 rounded-lg mt-4 flex gap-2 hover:brightness-90'>
                         <ArrowDownTrayIcon className='h-6 w-6' />

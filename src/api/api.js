@@ -1,5 +1,5 @@
 import axios from "axios";
-import { META, MANGA } from "@consumet/extensions";
+import { META, MANGA, ANIME } from "@consumet/extensions";
 
 const mangaApi = axios.create({
   baseURL: "https://consumet-weebixx.up.railway.app/meta/anilist-manga/",
@@ -10,6 +10,7 @@ const animeApi = axios.create({
 });
 
 const anilist = new META.Anilist({ url: "https://corsproxy.io/?" });
+const gogoanime = new ANIME.Gogoanime();
 const mangakakalot = new MANGA.MangaKakalot();
 
-export { mangaApi, animeApi, anilist, mangakakalot };
+export { mangaApi, animeApi, anilist, gogoanime, mangakakalot };
