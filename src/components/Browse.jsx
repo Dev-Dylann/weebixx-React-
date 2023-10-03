@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import ogImage from '../assets/og-image.png'
 import { Link } from 'react-router-dom';
 import Loader from './Loader';
-import { anilist } from '../api/api'
+import { animeApi, gogoanime } from '../api/api'
 import Slider from './Slider';
 import Error from './Error';
 import ToTop from './ToTop';
@@ -50,11 +50,10 @@ const Browse = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchRecentEpisodes(animeProvider, 1, 60)
-                console.log(animeProvider)
-
+                const data = await gogoanime.fetchRecentEpisodes()
                 console.log(data)
                 setRecent(data.results)
+
             } catch (err) {
                 if (err.response) {
                     console.log(err.response);
@@ -72,10 +71,15 @@ const Browse = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchTrendingAnime(1, 10)
+                const { data } = await animeApi.get('trending', {
+                    params: {
+                        page: 1,
+                        perPage: 10,
+                    }
+                })
+                console.log(data)
+                setTrending(data.results)
 
-                console.log(data);
-                setTrending(data.results);
             } catch(err) {
                 console.log(err.response);
             }
@@ -118,7 +122,7 @@ const Browse = () => {
                             <Link to={`episode/${episode.id}/${episode.episodeNumber}`} key={recent.indexOf(episode)} className='relative h-full hover:scale-105 transition-all'>
                                 <img src={episode.image} alt='' className='rounded-lg shadow-lg' />
                                 <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a] sm:text-sm'>Ep. {episode.episodeNumber}</p>
-                                <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base'>{episode.title.userPreferred}</p>
+                                <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base'>{episode.title}</p>
                             </Link>
                         ))}
                     </article>

@@ -4,7 +4,7 @@ import SettingsContext from '../context/SettingsContext';
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom'
 import { animeApi, anilist } from '../api/api';
-import axios from 'axios';
+import mapToAnilist from '../modules/mapping';
 import Loader from './Loader';
 import Error from './Error';
 import VideoPlayer from './VideoPlayer';
@@ -13,7 +13,7 @@ import { ChevronDoubleLeftIcon, ChevronDoubleRightIcon, ArrowDownTrayIcon } from
 
 const EpisodeInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
-    const {streamQuality, setStreamQuality} = useContext(SettingsContext)
+    const {streamQuality, setStreamQuality, animeProvider} = useContext(SettingsContext)
 
     const {animeId, episodeNumber} = useParams();
     const [animeInfo, setAnimeInfo] = useState({});
@@ -37,11 +37,16 @@ const EpisodeInfo = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchAnimeInfo(animeId)
-                console.log(data)
-                
-                setAnimeInfo(data);
-                setEpisodeList(data.episodes);
+                const aniId = await mapToAnilist(animeId, animeProvider)
+
+                const {data} = await animeApi.get(`info/${aniId}`, {
+                    params: {
+                        provider: animeProvider
+                    }
+                })
+                setAnimeInfo(data)
+                setEpisodeList(data.episodes)
+
             } catch(err) {
                 if (err.response) {
                     console.log(err.response)
@@ -60,27 +65,6 @@ const EpisodeInfo = () => {
         setIsLoading(true);
         setFetchError(null);
 
-        const fallBackFetch = async (currentEp, errMsg) => {
-            
-            try {
-                const {data} = await animeApi.get(`/watch/${currentEp?.id}`);
-                console.log(data)
-                setStreamLinks(data.sources);
-                setCurrentEpisode(currentEp);
-            } catch (err) {
-                console.log(err)
-                if (errMsg.response) {
-                    console.log(errMsg.response)
-                    fetchError === null && setFetchError(errMsg.response.data.message)
-                } else {
-                    console.log(errMsg.message)
-                    fetchError === null && setFetchError(errMsg.message)
-                }
-            } finally {
-                setIsLoading(false)
-            }
-        }
-
         const fetchStreamLinks = async () => {
             const currentEp = episodeList.find(episode => {
                 return episode.number.toString() === episodeNumber;
@@ -88,14 +72,29 @@ const EpisodeInfo = () => {
 
             try {
                 // new stuff
-                const data = await anilist.fetchEpisodeSources(currentEp?.id, 'vidstreaming')
-                console.log(data) 
+
+                const {data} = await animeApi.get(`watch/${currentEp?.id}`)
+                console.log(data)
                 console.log(currentEp);
                 setCurrentEpisode(currentEp);
                 setStreamLinks(data.sources);
+
+                /* const data = await anilist.fetchEpisodeSources(currentEp?.id, 'vidstreaming')
+                console.log(data) 
+                console.log(currentEp);
+                setCurrentEpisode(currentEp);
+                setStreamLinks(data.sources); */
                 
             } catch(err) {
-                fallBackFetch(currentEp, err)   
+                if (errMsg.response) {
+                    console.log(errMsg.response)
+                    setFetchError(errMsg.response.data.message)
+                } else {
+                    console.log(errMsg.message)
+                    setFetchError(errMsg.message)
+                }  
+            } finally {
+                setIsLoading(false)
             }
         }
 
@@ -156,9 +155,9 @@ const EpisodeInfo = () => {
                 <section className='px-5 sm:px-7 md:px-10 lg:px-0 lg:pt-10'>
                     <h2 className='text-lg font-montserrat sm:font-bold sm:text-xl'>{currentEpisode.title}</h2>
 
-                    <p className='text-gray-400 text-sm sm:text-base'>Released: {currentEpisode.airDate?.slice(0, currentEpisode.airDate.indexOf('T'))}</p>
+                    <p className='text-gray-400 text-sm sm:text-base'>Released: {currentEpisode.createdAt?.slice(0, currentEpisode.createdAt.indexOf('T'))}</p>
 
-                    <p className='mt-2 sm:text-lg lg:text-base'>{currentEpisode.description}</p>
+                    <p className='mt-2 sm:text-lg lg:text-base'>{currentEpisode.description ?? 'No description available.'}</p>
 
                     <button onClick={handleDownload} className='dark:text-[#1a1a1a] bg-accent p-2 rounded-lg mt-4 flex gap-2 hover:brightness-90'>
                         <ArrowDownTrayIcon className='h-6 w-6' />

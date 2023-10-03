@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { anilist } from '../api/api'
+import { anilist, animeApi } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
@@ -21,11 +21,20 @@ const SearchAnime = ({ query }) => {
             try {
                 // new stuff
 
-                const data = await anilist.search(query, page)
+                const { data } = await animeApi.get(query, {
+                    params: {
+                    page: page
+                    }
+                })
+                console.log(data)
+                setSearchResults(data.results);
+                setNextPage(data.hasNextPage);
+
+                /* const data = await anilist.search(query, page)
                 console.log(data)
                 
                 setSearchResults(data.results);
-                setNextPage(data.hasNextPage);
+                setNextPage(data.hasNextPage); */
             } catch(err) {
                 if (err.response) {
                     console.log(err.response);

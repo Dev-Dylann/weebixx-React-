@@ -156,7 +156,7 @@ const MangaInfo = () => {
                     <article className='flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-4'>
                         {chapterList.length ? (
                             chapterList.map(chapter => (
-                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
+                                <Link  to={`/chapter/${mangaInfo.id}/${chapter.encodedId}`} key={chapter?.id} className='py-2 px-5 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
                                     <div className='flex flex-col py-2'>
                                         <p className='line-clamp-1 text-ellipsis sm:text-lg'>Chapter {chapter.chapterNumber}: {chapter.title}</p>
                                         <p className='text-gray-400 text-sm sm:text-base'>{chapter.releasedDate}</p>
@@ -169,7 +169,7 @@ const MangaInfo = () => {
 
                 </article>
 
-                <Link to={`/chapterlist/${mangaId}`} className='bg-accent text-sm p-2 rounded-lg dark:text-[#1a1a1a] self-end flex items-center gap-1 hover:brightness-90 transition-all sm:text-base sm:mr-7 md:mr-10 lg:mr-0'>
+                <Link to={`/chapterlist/${mangaId}`} className='bg-accent text-sm p-2 mr-5 rounded-lg dark:text-[#1a1a1a] self-end flex items-center gap-1 hover:brightness-90 transition-all sm:text-base sm:mr-7 md:mr-10 lg:mr-0'>
                     See All Chapters
                     <ChevronRightIcon className='h-6 w-6' />
                 </Link>

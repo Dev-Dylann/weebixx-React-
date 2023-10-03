@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef, useContext } from 'react'
 import DataContext from '../context/DataContext'
+import SettingsContext from '../context/SettingsContext'
 import { useParams, Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import { anilist } from '../api/api'
+import { anilist, animeApi } from '../api/api'
 import Loader from './Loader'
 import Error from './Error'
 import Recommendations from './Recommendations'
@@ -10,6 +11,7 @@ import { ChevronDoubleDownIcon, ArrowsUpDownIcon, ChevronRightIcon, StarIcon } f
 
 const AnimeInfo = () => {
     const {ogTitle, ogDesc, ogImg, setOgTitle, setOgDesc, setOgImg} = useContext(DataContext);
+    const {animeProvider} = useContext(SettingsContext)
 
     const {animeId} = useParams();
     const [animeInfo, setAnimeInfo] = useState([]);
@@ -29,10 +31,18 @@ const AnimeInfo = () => {
             try {
                 // new stuff
 
-                const data = await anilist.fetchAnimeInfo(animeId)
-
+                const { data } = await animeApi.get(`info/${animeId}`, {
+                    params: {
+                        provider: animeProvider
+                    }
+                })
                 console.log(data)
                 setAnimeInfo(data);
+
+                /* const data = await anilist.fetchAnimeInfo(animeId)
+
+                console.log(data)
+                setAnimeInfo(data); */
             } catch(err) {
                 if (err.response) {
                     console.log(err.response);
