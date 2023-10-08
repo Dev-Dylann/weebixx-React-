@@ -117,8 +117,8 @@ const AnimeInfo = () => {
 
         {!isLoading && !fetchError && (
             <>
-            <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10 lg:px-16 lg:items-end lg:text-left lg:max-h-screen lg:relative xl:px-28'>
-            <img src={animeInfo.image} alt={animeInfo.id} className='w-1/3 rounded-lg sm:max-w-[200px] lg:absolute lg:top-5 lg:left-16 lg:max-w-[350px] lg:w-[30%] xl:left-28' />
+            <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10 lg:px-16 lg:grid lg:grid-cols-[auto,_1fr] grid-rows-[auto,_auto,_auto,_auto,_auto] lg:text-left lg:max-h-screen lg:relative xl:px-28 border border-black'>
+            <img src={animeInfo.image} alt={animeInfo.id} className='lg:row-span-full' />
             <h2 className='text-2xl font-montserrat sm:font-bold lg:w-[60%] lg:flex lg:items-center' title={animeInfo.title?.english}>{animeInfo.title?.romaji} <span className='hidden lg:block text-xs ml-3 font-normal'><StarIcon className='h-4 w-4 inline fill-[gold] stroke-[gold]' />{animeInfo.rating}%</span></h2>
 
             <p className='hidden lg:block font-montserrat text-lg w-[60%] -mt-1'>{animeInfo.studios}</p>
