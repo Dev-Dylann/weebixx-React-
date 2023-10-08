@@ -37,15 +37,22 @@ const EpisodeInfo = () => {
             try {
                 // new stuff
 
-                const aniId = await mapToAnilist(animeId, animeProvider)
+                const response = await mapToAnilist(animeId, animeProvider)
+                console.log(response)
+                console.log(typeof response)
 
-                const {data} = await animeApi.get(`info/${aniId}`, {
-                    params: {
-                        provider: animeProvider
-                    }
-                })
-                setAnimeInfo(data)
-                setEpisodeList(data.episodes)
+                if (typeof response !== 'object') {
+                    const {data} = await animeApi.get(`info/${response}`, {
+                        params: {
+                            provider: animeProvider
+                        }
+                    })
+                    setAnimeInfo(data)
+                    setEpisodeList(data.episodes)
+                } else {
+                    setAnimeInfo(response)
+                    setEpisodeList(response.episodes)
+                }
 
             } catch(err) {
                 if (err.response) {

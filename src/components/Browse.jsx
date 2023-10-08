@@ -134,7 +134,7 @@ const Browse = () => {
                                     <Link to={`episode/${episode.id}/${episode.episodeNumber}`} className='relative h-full'>
                                         <img src={episode.image} alt='' className='rounded-lg shadow-lg' />
                                         <p className='p-1 bg-accent absolute top-2 right-2 text-xs rounded-md dark:text-[#1a1a1a] sm:text-sm lg:text-xs'>Ep. {episode.episodeNumber}</p>
-                                        <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base lg:text-sm'>{episode.title.userPreferred}</p>
+                                        <p className='mt-1 text-sm line-clamp-2 text-ellipsis sm:text-base lg:text-sm'>{episode.title}</p>
                                     </Link>
                                 </SplideSlide>
                             ))}

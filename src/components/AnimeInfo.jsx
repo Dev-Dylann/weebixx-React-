@@ -117,11 +117,11 @@ const AnimeInfo = () => {
 
         {!isLoading && !fetchError && (
             <>
-            <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10 lg:px-16 lg:items-end lg:text-left lg:max-h-screen lg:relative xl:px-28'>
-            <img src={animeInfo.image} alt={animeInfo.id} className='w-1/3 rounded-lg sm:max-w-[200px] lg:absolute lg:top-5 lg:left-16 lg:max-w-[350px] lg:w-[30%] xl:left-28' />
+            <section className='flex flex-col items-center p-5 text-center gap-2 dark:text-white sm:px-7 md:px-10 lg:px-16 lg:grid lg:grid-cols-[auto,_1fr] lg:gap-x-10 lg:gap-y-0 lg:grid-rows-[auto,_auto,_auto,_auto,_auto] lg:text-left lg:max-h-screen lg:relative xl:px-28'>
+            <img src={animeInfo.image} alt={animeInfo.id} className='w-1/3 rounded-lg sm:max-w-[200px] lg:row-span-full lg:max-w-[260px] lg:w-full lg:self-start' />
             <h2 className='text-2xl font-montserrat sm:font-bold lg:w-[60%] lg:flex lg:items-center' title={animeInfo.title?.english}>{animeInfo.title?.romaji} <span className='hidden lg:block text-xs ml-3 font-normal'><StarIcon className='h-4 w-4 inline fill-[gold] stroke-[gold]' />{animeInfo.rating}%</span></h2>
 
-            <p className='hidden lg:block font-montserrat text-lg w-[60%] -mt-1'>{animeInfo.studios}</p>
+            <p className='hidden lg:block font-montserrat text-lg w-[60%] -mt-1'>{animeInfo.studios.map((studio, index) => <span key={`studio${index}`}>{studio}, </span>)}</p>
 
             <p className='flex items-center gap-3 text-gray-400 text-lg lg:w-[60%]'>
                 {animeInfo.currentEpisode} Episodes
@@ -136,7 +136,7 @@ const AnimeInfo = () => {
             ))}
             </p>
 
-            <p className='mt-2 sm:text-lg lg:w-[60%] lg:text-base'>{animeInfo.description}</p>
+            <p className='mt-2 sm:text-lg lg:w-[80%]'>{animeInfo.description}</p>
 
             <button ref={expandRef} type='button' onClick={(e) => setDetails(prev => !prev)} className='p-2 rounded-full transition-all duration-300 lg:invisible'>
                 <ChevronDoubleDownIcon className='h-6 w-6 dark:stroke-white' />
@@ -164,7 +164,7 @@ const AnimeInfo = () => {
             <article className='flex flex-col lg:grid lg:grid-cols-2 lg:gap-x-4'>
                 {episodeList.length ? (
                     episodeList.map(episode => (
-                        <Link  to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className='grid grid-cols-4 gap-x-2 py-4 px-5 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4'>
+                        <Link  to={`/episode/${animeInfo.id}/${episode.number}`} key={episode.id} className='grid grid-cols-4 gap-x-2 py-4 px-5 border-b last:border-0 dark:border-b-gray-700 hover:bg-[whitesmoke] dark:hover:bg-[#333] transition-all sm:px-7 md:px-10 lg:px-4 lg:last:border-b'>
                             <img src={episode.image} alt={`Ep. ${episode.number}`} className='col-span-1 my-auto' />
                             <div className='col-span-3 flex flex-col py-2'>
                                 <p className='line-clamp-1 text-ellipsis sm:text-lg'>{episode.number}. {episode.title}</p>

@@ -12,10 +12,13 @@ const fetchGogoInfo = async (animeId) => {
 
 const matchGogoToAnilist = async (gogoInfo) => {
   try {
-    const aniSearch = await animeApi.get(gogoInfo?.title);
+    const sliceIndex = gogoInfo?.title.indexOf(":" || ",");
+    const keyword = gogoInfo?.title.slice(0, sliceIndex);
+    console.log(keyword);
+
+    const aniSearch = await animeApi.get(keyword);
     const results = aniSearch.data.results;
     console.log(gogoInfo);
-    console.log(results);
 
     const matchedAnime = results.find((anime) => {
       return (
@@ -48,7 +51,7 @@ const mapToAnilist = async (animeId, animeProvider) => {
       },
     });
 
-    return data.id;
+    return data;
   } catch (err) {
     console.log(err.message);
 
