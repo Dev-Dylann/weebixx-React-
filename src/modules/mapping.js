@@ -2,7 +2,13 @@ import { anilist, animeApi, gogoanime } from "../api/api";
 
 const fetchGogoInfo = async (animeId) => {
   try {
-    const data = await gogoanime.fetchAnimeInfo(animeId);
+    console.log(animeId);
+
+    const data = await gogoanime.fetchAnimeInfo(
+      animeId === "jujutsu-kaisen-2nd-season"
+        ? "jujutsu-kaisen-tv-2nd-season"
+        : animeId
+    );
 
     return data;
   } catch (err) {
