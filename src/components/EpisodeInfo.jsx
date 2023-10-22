@@ -79,8 +79,9 @@ const EpisodeInfo = () => {
 
             try {
                 // new stuff
+                console.log(currentEp);
 
-                const {data} = await animeApi.get(`watch/${currentEp?.id}`)
+                const {data} = await animeApi.get(`watch${currentEp?.id}`)
                 console.log(data)
                 console.log(currentEp);
                 setCurrentEpisode(currentEp);
@@ -93,12 +94,12 @@ const EpisodeInfo = () => {
                 setStreamLinks(data.sources); */
                 
             } catch(err) {
-                if (errMsg.response) {
-                    console.log(errMsg.response)
-                    setFetchError(errMsg.response.data.message)
+                if (err.response) {
+                    console.log(err.response)
+                    setFetchError(err.response.data.message)
                 } else {
-                    console.log(errMsg.message)
-                    setFetchError(errMsg.message)
+                    console.log(err.message)
+                    setFetchError(err.message)
                 }  
             } finally {
                 setIsLoading(false)
