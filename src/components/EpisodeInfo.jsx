@@ -79,8 +79,7 @@ const EpisodeInfo = () => {
 
             try {
                 // new stuff
-                console.log(currentEp);
-
+                
                 const {data} = await animeApi.get(`watch${currentEp?.id}`)
                 console.log(data)
                 console.log(currentEp);
