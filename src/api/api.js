@@ -2,11 +2,11 @@ import axios from "axios";
 import { META, MANGA, ANIME } from "@consumet/extensions";
 
 const mangaApi = axios.create({
-  baseURL: "https://consumet-weebixx.up.railway.app/meta/anilist-manga/",
+  baseURL: "https://consumet-api-for-weebixx.onrender.com/meta/anilist-manga/",
 });
 
 const animeApi = axios.create({
-  baseURL: "https://consumet-weebixx.up.railway.app/meta/anilist/",
+  baseURL: "https://consumet-api-for-weebixx.onrender.com/meta/anilist/",
 });
 
 const anilist = new META.Anilist({ url: "https://corsproxy.io/?" });
